@@ -7,13 +7,15 @@ selling = {}
 
 ---@param args { fishName: string, count: number }
 function selling.sellFish(args)
-    local count = lib.inputDialog(locale('sell_fish'), {
+    Wait(50) -- Wait for context to hide
+    local count = inputDialog(locale('sell_fish'), {
         {
             type = 'number',
             placeholder = locale('sell_fish_placeholder'),
             min = 1,
             label = locale('amount'),
-            description = locale('sell_fish_sell_all')
+            description = locale('sell_fish_sell_all'),
+            icon = 'fish'
         }
     })?[1] --[[@as number?]]
 
