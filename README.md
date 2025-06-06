@@ -12,9 +12,6 @@ A FiveM fishing script based on real-life fishing experience. Highly optimized a
 - Preconfigured 2 type of daily challenges (catch specified amount of fishes, catch specified fishes)
 - You can set reward for both daily challenges by setting a price per caught fish
 
-## 📚 Documentation
-Coming soon!
-
 ## ⚠️ Dependencies
 - [ox_inventory](https://github.com/overextended/ox_inventory)
 - [ox_lib](https://github.com/overextended/ox_lib)
