@@ -20,6 +20,13 @@
 ---@field maxWeight number
 ---@field price number
 
+---@class FishingNet
+---@field name string
+---@field slots integer
+---@field maxWeight number
+---@field price number
+---@field prop string
+
 return {
     ---@type FishingRod[]
     rods = {
@@ -42,5 +49,10 @@ return {
     ---@type CoolerBox[]
     coolerBoxes = {
         { name = 'fish_cooler_box_small', slots = 10, maxWeight = 15000, price = 500 }
+    },
+
+    ---@type FishingNet[]
+    fishingNets = {
+        { name = 'small_fishing_net', slots = 5, maxWeight = 10000, price = 1000, prop = `prop_dog_cage_02` }
     }
 }

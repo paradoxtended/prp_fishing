@@ -51,6 +51,8 @@ function showProgressBar(label, duration, canCancel, anim, prop)
     })
 end
 
+lib.callback.register('prp_fishing:progressBar', showProgressBar)
+
 ---@param options { key: string?, text: string }[]
 function showTextUI(options)
     prp.showTextUI(options)
@@ -102,6 +104,7 @@ require 'modules.sell.client'
 require 'modules.challenges.client'
 require 'modules.rent.client'
 require 'modules.anchor.client'
+require 'modules.nets.client'
 
 ---@type { index: integer, locationIndex: integer }?
 local currentZone

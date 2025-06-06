@@ -25,6 +25,7 @@ local containers = require 'modules.items.server'
 require 'modules.sell.server'
 require 'modules.challenges.server'
 require 'modules.rent.server'
+require 'modules.nets.server'
 
 local Items = require 'data.items'
 local Fish = require 'data.fish'
