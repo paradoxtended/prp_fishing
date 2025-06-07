@@ -25,7 +25,7 @@ shared_scripts {
 }
 
 client_scripts { 'modules/bridge/**/client.lua', 'client.lua' }
-server_scripts { 'modules/bridge/**/server.lua', 'server.lua', '@oxmysql/lib/MySQL.lua' }
+server_scripts { '@oxmysql/lib/MySQL.lua', 'modules/bridge/**/server.lua', 'server.lua' }
 
 files {
     'locales/*.json',

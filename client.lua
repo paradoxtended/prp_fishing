@@ -43,9 +43,15 @@ end
 ---@param prop? { model: string, bone?: number, pos: vector3, rot: vector3, rotOrder?: number }
 function showProgressBar(label, duration, canCancel, anim, prop)
     return prp.progressBar({
-        label = label,
         duration = duration,
+        label = label,
+        useWhileDead = false,
         canCancel = canCancel,
+        disable = {
+            car = true,
+            move = true,
+            combat = true
+        },
         anim = anim,
         prop = prop
     })
