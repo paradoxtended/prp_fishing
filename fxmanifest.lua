@@ -4,7 +4,7 @@ lua54 'yes'
 game 'gta5'
 name 'prp_fishing'
 author 'Paradox'
-version '1.0.0'
+version '1.0.1'
 repository 'https://github.com/hi-i-am-andrew/prp_fishing'
 description 'An advanced fishing script for FiveM'
 
@@ -25,7 +25,7 @@ shared_scripts {
 }
 
 client_scripts { 'modules/bridge/**/client.lua', 'client.lua' }
-server_scripts { 'modules/bridge/**/server.lua', 'server.lua', '@oxmysql/lib/MySQL.lua' }
+server_scripts { '@oxmysql/lib/MySQL.lua', 'modules/bridge/**/server.lua', 'server.lua' }
 
 files {
     'locales/*.json',

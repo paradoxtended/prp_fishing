@@ -27,6 +27,14 @@ end
 
 lib.callback.register('prp_fishing:alertDialog', alertDialog)
 
+---@param heading string
+---@param rows string[] | InputDialogRowProps[]
+---@param options InputDialogOptionsProps[]?
+---@return string[] | number[] | boolean[] | nil
+function inputDialog(heading, rows, options)
+    return prp.inputDialog(heading, rows, options)
+end
+
 ---@param content string
 ---@param type 'error' | 'success' | 'inform'
 function notify(content, type)
@@ -51,13 +59,21 @@ end
 ---@param prop? { model: string, bone?: number, pos: vector3, rot: vector3, rotOrder?: number }
 function showProgressBar(label, duration, canCancel, anim, prop)
     return prp.progressBar({
-        label = label,
         duration = duration,
+        label = label,
+        useWhileDead = false,
         canCancel = canCancel,
+        disable = {
+            car = true,
+            move = true,
+            combat = true
+        },
         anim = anim,
         prop = prop
     })
 end
+
+lib.callback.register('prp_fishing:progressBar', showProgressBar)
 
 ---@param options { key: string?, text: string }[]
 function showTextUI(options)
@@ -110,6 +126,7 @@ require 'modules.sell.client'
 require 'modules.challenges.client'
 require 'modules.rent.client'
 require 'modules.anchor.client'
+require 'modules.nets.client'
 
 ---@type { index: integer, locationIndex: integer }?
 local currentZone

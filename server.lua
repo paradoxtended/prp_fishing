@@ -17,6 +17,7 @@ end
 ----------------------------------------------------------------------------------------------------------
 --- Script, don't touch unless you know what you're doing
 ----------------------------------------------------------------------------------------------------------
+lib.versionCheck('https://github.com/paradoxtended/prp_fishing')
 
 local Inventory = exports.ox_inventory
 
@@ -25,6 +26,7 @@ local containers = require 'modules.items.server'
 require 'modules.sell.server'
 require 'modules.challenges.server'
 require 'modules.rent.server'
+require 'modules.nets.server'
 
 local Items = require 'data.items'
 local Fish = require 'data.fish'
@@ -80,6 +82,8 @@ local function getRandomFish(fish)
         last += current
     end
 end
+
+exports('getRandomFish', getRandomFish)
 
 --- Function returning if player has a bait item equipped on rod, if so then it returns [true, baitIndex, slotIndex]
 ---@return boolean, integer?, integer?

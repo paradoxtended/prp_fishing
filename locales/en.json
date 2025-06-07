@@ -43,5 +43,14 @@
     "anchor_boat": "Anchor boat",
     "raise_anchor": "Raise anchor",
     "no_hook": "You have no hook on this fishing rod.",
-    "has_hook": "This fishing rod has a hook already attached."
+    "has_hook": "This fishing rod has a hook already attached.",
+    "cant_swim": "You can't swim to place a fishing net.",
+    "placing_net": "Placing fishing net...",
+    "fishing_net": "Fishing net",
+    "take_fishing_net": "Take fishing net",
+    "taking_fishing_net": "Taking fishing net...",
+    "search_fishing_net": "Search fishing net",
+    "searching_fishing_net": "Searching fishing net...",
+    "took_fishing_net": "Fishing net was successfully took.",
+    "too_close_fishing_net": "You are too close to another fishing net."
 }
