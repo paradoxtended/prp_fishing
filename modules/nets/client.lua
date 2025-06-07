@@ -16,8 +16,15 @@ local function hasWaterInFront()
     local coords = GetOffsetFromEntityInWorldCoords(cache.ped, 0.0, 45.0, -27.5)
     local hasWater, coords = TestProbeAgainstWater(headCoords.x, headCoords.y, headCoords.z, coords.x, coords.y, coords.z)
 
-    if not hasWater or #(GetEntityCoords(cache.ped) - coords?.xyz) > 2.0 then
+    local pedCoords = GetEntityCoords(cache.ped)
+
+    if not hasWater or #(pedCoords - coords?.xyz) > 2.0 then
         notify(locale('no_water'), 'error')
+        return false
+    end
+
+    if lib.getClosestObject(pedCoords, 5.0) then
+        notify(locale('too_close_fishing_net'), 'error')
         return false
     end
 

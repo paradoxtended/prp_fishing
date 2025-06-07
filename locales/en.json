@@ -51,5 +51,6 @@
     "taking_fishing_net": "Taking fishing net...",
     "search_fishing_net": "Search fishing net",
     "searching_fishing_net": "Searching fishing net...",
-    "took_fishing_net": "Fishing net was successfully took."
+    "took_fishing_net": "Fishing net was successfully took.",
+    "too_close_fishing_net": "You are too close to another fishing net."
 }

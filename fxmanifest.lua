@@ -4,7 +4,7 @@ lua54 'yes'
 game 'gta5'
 name 'prp_fishing'
 author 'Paradox'
-version '1.0.0'
+version '1.0.1'
 repository 'https://github.com/hi-i-am-andrew/prp_fishing'
 description 'An advanced fishing script for FiveM'
 

@@ -17,6 +17,7 @@ end
 ----------------------------------------------------------------------------------------------------------
 --- Script, don't touch unless you know what you're doing
 ----------------------------------------------------------------------------------------------------------
+lib.versionCheck('https://github.com/paradoxtended/prp_fishing')
 
 local Inventory = exports.ox_inventory
 
@@ -81,6 +82,8 @@ local function getRandomFish(fish)
         last += current
     end
 end
+
+exports('getRandomFish', getRandomFish)
 
 --- Function returning if player has a bait item equipped on rod, if so then it returns [true, baitIndex, slotIndex]
 ---@return boolean, integer?, integer?

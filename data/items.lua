@@ -25,7 +25,7 @@
 ---@field slots integer
 ---@field maxWeight number
 ---@field price number
----@field prop string
+---@field prop? string
 
 return {
     ---@type FishingRod[]

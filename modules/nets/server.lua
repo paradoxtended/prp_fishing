@@ -11,6 +11,9 @@ local tables = {
 }
 
 local items = require 'data.items'
+local zones = require 'data.zones'
+local fishes = require 'data.fish'
+
 local Utils = require 'utils.server'
 
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -69,6 +72,7 @@ AddEventHandler('onResourceStop', function(resource)
 		save()
 	end
 end)
+
 
 ---@param stashId string
 ---@param coords vector4
@@ -141,6 +145,10 @@ lib.callback.register('prp_fishing:takeFishingNet', function(source, stashId)
     if progress then
         fishingNets[stashId] = nil
         MySQL.prepare.await('DELETE FROM prp_fishing WHERE stashId = ?', { stashId })
+        MySQL.query.await('DELETE FROM ox_inventory WHERE name = ?', {
+            stashId
+        })
+        inventory:RemoveInventory(stashId)
 
         TriggerClientEvent('prp_fishing:takeFishingNet', -1, stashId)
         player:addItem(net.name, 1)
@@ -166,3 +174,34 @@ end, {
         '^prp_fishing:fishingNet_[%w]+'
     }
 })
+
+---@return integer?
+local function isNetInZone(data)
+    for zoneIndex, zone in ipairs(zones.zones) do
+        for _, coords in ipairs(zone.locations) do
+            if #(vector3(data.coords.x, data.coords.y, data.coords.z) - coords.xyz) <= zone.radius then
+                return zoneIndex
+            end
+        end
+    end
+end
+
+local interval = 1 * 60000
+
+SetInterval(function()
+    for stashId, data in pairs(fishingNets) do
+        if inventory:GetEmptySlot(stashId) then
+            local zoneIndex = isNetInZone(data)
+
+            local zone = zones.zones[zoneIndex] or zones.outside
+            local fishName = exports.prp_fishing:getRandomFish(zone.fishList)
+            local fish = fishes[fishName]
+            local length = randomDecimal(fish.length.min, fish.length.max)
+            
+            inventory:AddItem(stashId, fishName, 1, {
+                length = length,
+                description = locale('fish_length', length)
+            })
+        end
+    end
+end, interval)

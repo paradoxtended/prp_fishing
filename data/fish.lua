@@ -8,7 +8,7 @@
 return {
     ['anchovy'] = { pricePerInch = 5.5, chance = 35, length = { min = 4.0, max = 7.0 } },
     ['trout'] = { pricePerInch = 7.2, chance = 35, length = { min = 8.0, max = 15.0 } },
-    ['haddock'] = { pricePerInch = 8.5, chance = 20, length = { min = 10.0, max = 20.0 }, catchCount = 2 },
+    ['haddock'] = { pricePerInch = 8.5, chance = 20, length = { min = 10.0, max = 15.0 }, catchCount = 2 },
     ['salmon'] = { pricePerInch = 11.0, chance = 10, length = { min = 4.7, max = 6.6 }, catchCount = 2 },
     ['grouper'] = { pricePerInch = 12.5, chance = 25, length = { min = 2.2, max = 5.4 }, catchCount = 3 },
     ['piranha'] = { pricePerInch = 15.0, chance = 25, length = { min = 0.5, max = 2.7 } },

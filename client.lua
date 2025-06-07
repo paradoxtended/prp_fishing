@@ -19,6 +19,14 @@ end
 
 lib.callback.register('prp_fishing:alertDialog', alertDialog)
 
+---@param heading string
+---@param rows string[] | InputDialogRowProps[]
+---@param options InputDialogOptionsProps[]?
+---@return string[] | number[] | boolean[] | nil
+function inputDialog(heading, rows, options)
+    return prp.inputDialog(heading, rows, options)
+end
+
 ---@param content string
 ---@param type 'error' | 'success' | 'inform'
 function notify(content, type)
