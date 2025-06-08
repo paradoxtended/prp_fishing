@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+    }
+}
+
+.container {
+    font-family: 'Oswald', sans-serif;
+    width: 1200px;
+    height: 700px;
+    background: linear-gradient(#000000, #1a2e05);
+    border-radius: 5px;
+    border: 1px solid #000000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 300ms forwards;
+    color: #ffffff;
+}
+
+.header {
+    background-color: #0a0a0a;
+    height: 40px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 17px;
+    position: sticky;
+    top: 0;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    i {
+        cursor: pointer;
+    }
+}
+
+.main {
+    padding: 30px 30px 0 30px;
+    height: calc(700px - 40px);
+}
+
+.main-page {
+    padding: 20px;
+    .welcome {
+        font-size: 45px;
+        font-weight: 300;
+        line-height: 20px;
+    }
+
+    .username {
+        font-size: 60px;
+    }
+
+    .cards {
+        width: 50%;
+        margin: 30px 0;
+        height: 120px;
+
+        .card {
+            height: 150px;
+            width: 120px;
+            border: 1px solid #a8a8a8;
+            border-radius: 7px;
+            background: linear-gradient(135deg, #a8a8a800, #a8a8a850);
+            border-left: 0; border-top: 0;
+            filter: drop-shadow(2px 2px 5px #a8a8a8);
+        }
+    }
+}

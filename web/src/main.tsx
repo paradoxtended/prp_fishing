@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { isEnvBrowser } from './utils/misc';
+import LocaleProvider from './providers/LocaleProvider.tsx';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
@@ -18,6 +19,8 @@ const root = document.getElementById('root');
 
 createRoot(root!).render(
   <StrictMode>
-    <App />
+    <LocaleProvider>
+      <App />
+    </LocaleProvider>
   </StrictMode>,
 )
