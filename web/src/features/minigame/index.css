@@ -84,7 +84,7 @@
 #fish-minigame {
     width: 30px;
     height: 30px;
-    background: url('../../../public/fish.png') no-repeat center / contain;
+    background: url('/fish.png') no-repeat center / contain;
     position: absolute;
     transition: all 150ms linear;
 }

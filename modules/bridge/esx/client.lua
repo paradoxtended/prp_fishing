@@ -1,3 +1,5 @@
+lib.locale()
+
 ---@diagnostic disable: duplicate-set-field
 ---@diagnostic disable: duplicate-doc-field
 

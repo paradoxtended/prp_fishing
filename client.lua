@@ -119,6 +119,7 @@ require 'modules.challenges.client'
 require 'modules.rent.client'
 require 'modules.anchor.client'
 require 'modules.nets.client'
+require 'modules.db.client'
 
 ---@type { index: integer, locationIndex: integer }?
 local currentZone
@@ -147,9 +148,9 @@ for locationIndex, loc in ipairs(Peds.locations) do
             args = locationIndex
         },
         {
-            label = locale('fishing_challenges'),
-            icon = 'trophy',
-            onSelect = challenges.openMenu,
+            label = locale('open_tablet'),
+            icon = 'tablet',
+            onSelect = db.openMenu,
             args = locationIndex
         },
         isRenting

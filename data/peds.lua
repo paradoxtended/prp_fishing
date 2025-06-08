@@ -6,6 +6,7 @@
 ---@field scenarios string[] Ped will play one of the scenarios
 ---@field account 'money' | 'bank' | 'black_money'
 ---@field renting { boats: BoatData[], returnDivider: number, returnRadius: number }
+---@field locale string Locale for fishing tablet
 
 ---@class BoatData
 ---@field model string
@@ -43,5 +44,6 @@ return {
         },
         returnDivider = 5,
         returnRadius = 30.0
-    }
+    },
+    locale = 'en'
 }

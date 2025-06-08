@@ -1,5 +1,3 @@
-lib.locale()
-
 local Inventory = exports.ox_inventory
 local Peds = require 'data.peds'
 

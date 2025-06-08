@@ -1,5 +1,11 @@
-export interface TabletProps {
-    myStats: {
-        fishesCaught: { [fishName: string]: { amount: number, longest: number } } | null;
-    }
-}
+export interface ChallengeProps {
+    title: string;
+    value: string | number;
+    description: string;
+    claimed?: boolean;
+};
+
+export interface Base {
+    nickname: string;
+    challenges: ChallengeProps[]
+};
