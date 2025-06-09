@@ -1,3 +1,7 @@
+-----------------------------------------------------------------------------------------------------------------------------
+--- MODULE
+----------------------------------------------------------------------------------------------------------------------------- 
+
 local peds = require 'data.peds'
 local utils = require 'utils.client'
 
@@ -22,6 +26,10 @@ function db.openMenu(index)
     SetNuiFocus(true, true)
     SendNUIMessage({ action = 'openTablet' })
 end
+
+-----------------------------------------------------------------------------------------------------------------------------
+--- NUI CALLBACKS
+----------------------------------------------------------------------------------------------------------------------------- 
 
 RegisterNUICallback('init', function(_, cb)
     cb(1)
@@ -77,4 +85,9 @@ end)
 RegisterNUICallback('closeTablet', function(_, cb)
     cb(1)
     SetNuiFocus(false, false)
+end)
+
+RegisterNUICallback('playerStats', function (_, cb)
+    local stats = lib.callback.await('prp_fishing:getPlayerStats', false)
+    cb(stats)
 end)

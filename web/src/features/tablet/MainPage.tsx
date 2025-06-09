@@ -11,10 +11,6 @@ type MainPageProps = {
 
 const icons: string[] = ['trophy', 'award', 'medal'];
 
-function randomFromTable<T>(table: T[]): T {
-    return table[Math.floor(Math.random() * table.length)];
-}
-
 const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const { locale } = useLocales();
@@ -37,6 +33,19 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
     
         setTimeout(() => setVisible(true), 500)
     }, [visible]);
+
+    const handleChallenge = async(index: number, type?: string) => {
+        if (type === 'reload')
+            fetchNui('reloadDailyChallenge', index);
+        else if (type === 'claim')
+            fetchNui('claimChallenge', index)
+
+        setTimeout(async () => {
+            const data: Base = await fetchNui('getFishingData');
+            setChallenges(data.challenges);
+            setNickname(data.nickname);
+        }, 50)
+    };
 
     return (
         visible && !loading ? (
@@ -61,16 +70,16 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
                     <div className="cards">
                         {challenges.map((challenge, index) => (
                             <div className={`card ${challenge?.claimed && 'claimed'}`} key={index}>
-                                <div className="label"><i className={`fa-solid fa-${randomFromTable(icons)}`}></i> {challenge.title}</div>
+                                <div className="label"><i className={`fa-solid fa-${icons[index % icons.length]}`}></i> {challenge.title}</div>
                                 <div className="main-text">{challenge.value}</div>
                                 <div className="description">{challenge.description}</div>
                                 <div className="buttons">
-                                    <button onClick={() => fetchNui('claimChallenge', index)}
+                                    <button onClick={() => handleChallenge(index, 'claim')}
                                         disabled={challenge?.claimed}
                                     >
                                         {!challenge?.claimed ? locale.ui.claim : locale.ui.claimed}
                                     </button>
-                                    <button onClick={() => fetchNui('reloadDailyChallenge', index)}>{locale.ui.reload}</button>
+                                    <button onClick={() => handleChallenge(index, 'reload')}>{locale.ui.reload}</button>
                                 </div>
                             </div>
                         ))}

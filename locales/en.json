@@ -45,7 +45,7 @@
     "dch_claimed": "You have completed the challenge.",
     "dch_cant_claim": "You haven't completed the challenge.",
     "information": "Information",
-    "dch_reloaded": "Daily challenge has been reloaded. It'll get updated once you reopen the tablet.",
+    "dch_reloaded": "Daily challenge has been reloaded.",
     "dch_reloaded_already": "You have already reloaded one daily challenge. You can do it only one time.",
     "dch_info_content": "Challenges are automatically generated everytime when server get restarted. You can complete them by fishing and receive rewards.",
     "dch_title": "Catch %s/%s %s ($%s)",

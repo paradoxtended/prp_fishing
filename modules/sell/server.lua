@@ -100,6 +100,7 @@ lib.callback.register('prp_fishing:sellFish', function(source, fishName, count)
     if confirmed then
         player:addAccountMoney(peds.account, price)
         getGoodsPrice(true)
+        db.addTotalEarned(player:getIdentifier(), price)
 
         return price
     end

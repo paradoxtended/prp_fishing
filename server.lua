@@ -27,6 +27,7 @@ require 'modules.sell.server'
 require 'modules.challenges.server'
 require 'modules.rent.server'
 require 'modules.nets.server'
+require 'modules.db.server'
 
 local Items = require 'data.items'
 local Fish = require 'data.fish'
@@ -139,6 +140,8 @@ RegisterNetEvent('prp_fishing:startFishing', function(slotId)
 
     closeInventory()
 
+    local identifier = player:getIdentifier()
+
     local hasWater, currentZone = lib.callback.await('prp_fishing:getCurrentZone', source)
     if not hasWater then return end
 
@@ -193,7 +196,9 @@ RegisterNetEvent('prp_fishing:startFishing', function(slotId)
         })
 
         notify(locale('fish_caught', length, Utils.GetItemLabel(fishName)), 'success')
-        challenges.addCatchFish(player:getIdentifier(), fishName)
+        challenges.addCatchFish(identifier, fishName)
+        db.addFish(identifier, fishName)
+        db.changeLongestFish(identifier, fishName, length)
     elseif math.random(100) <= rod.breakChance and success ~= 'cancel' then
         player:removeItem(rod.name, 1)
         notify(locale('rod_broke'), 'error')

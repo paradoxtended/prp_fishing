@@ -5,7 +5,13 @@ export interface ChallengeProps {
     claimed?: boolean;
 };
 
+export interface StatsProps {
+    totalEarned: number;
+    longestFish: number;
+    totalFish: number;
+};
+
 export interface Base {
     nickname: string;
-    challenges: ChallengeProps[]
+    challenges: ChallengeProps[];
 };
