@@ -59,7 +59,7 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
                             <img src='./statistics.png' />
                             <p className="label">{locale.ui.statistics}</p>
                         </div>
-                        <div className="card">
+                        <div className="card" onClick={() => setPage('leaderboard')}>
                             <img src='./leaderboard.png' />
                             <p className="label">{locale.ui.leaderboard}</p>
                         </div>

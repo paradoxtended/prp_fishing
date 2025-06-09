@@ -19,6 +19,7 @@ debugData([
                 statistics: 'Statistics',
                 statistics_description: 'This page shows you your current fishing statistics such as total earned, how many fishes you caught and more.',
                 leaderboard: 'Leaderboard',
+                leaderboard_description: 'Here you can find all fishermen. Check who\'s the best fisherman of this city.',
                 ongoing_challenges: 'Ongoing daily challenges',
                 claim: 'Claim',
                 claimed: 'Claimed',
@@ -29,6 +30,11 @@ debugData([
                 total_earned_description: 'Total money earned from the moment you started fishing.',
                 longest_fish: 'Longest fish ever caught',
                 longest_fish_description: 'The longest fish you\'ve ever caught at your fishing journey.',
+                lb_username: 'Name',
+                lb_fish_caught: 'Fish caught',
+                lb_total_earned: 'Earned so far',
+                lb_longest_fish: 'Longest fish caught',
+                lb_placeholder: 'Look up yourself...'
             },
         },
     },
@@ -41,6 +47,7 @@ interface Locale {
         statistics: string;
         statistics_description: string;
         leaderboard: string;
+        leaderboard_description: string;
         ongoing_challenges: string;
         catch_specified_fish: string;
         catch_specified_fish_description: string;
@@ -55,6 +62,11 @@ interface Locale {
         total_earned_description: string;
         longest_fish: string;
         longest_fish_description: string;
+        lb_username: string;
+        lb_fish_caught: string;
+        lb_total_earned: string;
+        lb_longest_fish: string;
+        lb_placeholder: string;
     };
 }
 
@@ -73,6 +85,7 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             statistics: '',
             statistics_description: '',
             leaderboard: '',
+            leaderboard_description: '',
             ongoing_challenges: '',
             catch_amount_of_fishes: '',
             catch_specified_fish_description: '',
@@ -86,7 +99,12 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             total_earned: '',
             total_earned_description: '',
             longest_fish: '',
-            longest_fish_description: ''
+            longest_fish_description: '',
+            lb_username: '',
+            lb_fish_caught: '',
+            lb_total_earned: '',
+            lb_longest_fish: '',
+            lb_placeholder: ''
         },
     });
 

@@ -4,11 +4,14 @@ import './FishingTablet.css'
 import MainPage from "./MainPage";
 import StatsPage from "./StatsPage";
 import { fetchNui } from "../../utils/fetchNui";
+import Leaderboard from './Leaderboard';
+import type { LeaderboardProps } from "../../typings/tablet";
 
 const FishingTablet: React.FC = () => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const [shouldLoad, setShouldLoad] = React.useState<boolean>(true);
     const [currentPage, setCurrentPage] = React.useState<string | null>('home');
+    const [leaderboard, setLeaderboard] = React.useState<LeaderboardProps[]>([]);
 
     const handleClose = () => {
         const container = document.querySelector('.container') as HTMLDivElement;
@@ -31,10 +34,12 @@ const FishingTablet: React.FC = () => {
         return () => window.removeEventListener('keydown', keyHandler);
     }, [visible]);
 
-    useNuiEvent('openTablet', () => {
+    useNuiEvent('openTablet', (data) => {
         setCurrentPage('home');
         setShouldLoad(true);
         setVisible(true);
+        setLeaderboard(data.leaderboard);
+
         setTimeout(() => setShouldLoad(false), 1);
     });
 
@@ -54,6 +59,7 @@ const FishingTablet: React.FC = () => {
                 <div className="main">
                     {currentPage === 'home' && <MainPage setPage={setCurrentPage} loading={shouldLoad} />}
                     {currentPage === 'stats' && <StatsPage />}
+                    {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
                 </div>
             </div>
         )
