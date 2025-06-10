@@ -5,13 +5,18 @@ import MainPage from "./MainPage";
 import StatsPage from "./StatsPage";
 import { fetchNui } from "../../utils/fetchNui";
 import Leaderboard from './Leaderboard';
-import type { LeaderboardProps } from "../../typings/tablet";
+import type { LeaderboardProps, StatsProps } from "../../typings/tablet";
 
 const FishingTablet: React.FC = () => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const [shouldLoad, setShouldLoad] = React.useState<boolean>(true);
     const [currentPage, setCurrentPage] = React.useState<string | null>('home');
     const [leaderboard, setLeaderboard] = React.useState<LeaderboardProps[]>([]);
+    const [statistics, setStatistics] = React.useState<StatsProps>({
+        earned: 0,
+        fishCaught: 0,
+        longestFish: 0
+    });
 
     const handleClose = () => {
         const container = document.querySelector('.container') as HTMLDivElement;
@@ -39,6 +44,7 @@ const FishingTablet: React.FC = () => {
         setShouldLoad(true);
         setVisible(true);
         setLeaderboard(data.leaderboard);
+        setStatistics(data.statistics);
 
         setTimeout(() => setShouldLoad(false), 1);
     });
@@ -58,7 +64,7 @@ const FishingTablet: React.FC = () => {
                 </div>
                 <div className="main">
                     {currentPage === 'home' && <MainPage setPage={setCurrentPage} loading={shouldLoad} />}
-                    {currentPage === 'stats' && <StatsPage />}
+                    {currentPage === 'stats' && <StatsPage stats={statistics} />}
                     {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
                 </div>
             </div>

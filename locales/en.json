@@ -14,7 +14,12 @@
         "total_earned": "Total earned",
         "total_earned_description": "Total money earned from the moment you started fishing.",
         "longest_fish": "Longest fish ever caught",
-        "longest_fish_description": "The longest fish you've ever caught at your fishing journey."
+        "longest_fish_description": "The longest fish you've ever caught at your fishing journey.",
+        "lb_username": "Name",
+        "lb_fish_caught": "Fish caught",
+        "lb_total_earned": "Earned so far",
+        "lb_longest_fish": "Longest fish caught",
+        "lb_placeholder": "Look up yourself..."
     },
     "fishing_equipment": "Fishing Equipment",
     "fishing_challenges": "Fishing Challenges",

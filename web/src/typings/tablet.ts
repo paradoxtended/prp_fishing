@@ -6,9 +6,9 @@ export interface ChallengeProps {
 };
 
 export interface StatsProps {
-    totalEarned: number;
+    earned: number;
     longestFish: number;
-    totalFish: number;
+    fishCaught: number;
 };
 
 export interface LeaderboardProps {

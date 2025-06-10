@@ -23,8 +23,16 @@ function db.openMenu(index)
         return
     end
 
+    local stats, lb = lib.callback.await('prp_fishing:getPlayerStats', false)
+
     SetNuiFocus(true, true)
-    SendNUIMessage({ action = 'openTablet' })
+    SendNUIMessage({ 
+        action = 'openTablet',
+        data = {
+            leaderboard = lb,
+            statistics = stats
+        }
+    })
 end
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -85,9 +93,4 @@ end)
 RegisterNUICallback('closeTablet', function(_, cb)
     cb(1)
     SetNuiFocus(false, false)
-end)
-
-RegisterNUICallback('playerStats', function (_, cb)
-    local stats = lib.callback.await('prp_fishing:getPlayerStats', false)
-    cb(stats)
 end)

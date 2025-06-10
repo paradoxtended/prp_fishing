@@ -2,9 +2,9 @@ local fishes = require 'data.fish'
 local peds = require 'data.peds'
 
 ---@class FishingStats
----@field totalFish number
+---@field fishCaught number
 ---@field longestFish number
----@field totalEarned number
+---@field earned number
 
 ---@type table<string, FishingStats>
 local levels = {}
@@ -36,8 +36,8 @@ db = {}
 ---@param identifier string
 function db.createPlayer(identifier)
     levels[identifier] = {
-        totalEarned = 0,
-        totalFish = 0,
+        earned = 0,
+        fishCaught = 0,
         longestFish = 0
     }
     MySQL.insert.await('INSERT INTO prp_fishing_users (user_identifier, data) VALUES (?, ?)', { identifier, json.encode(levels[identifier]) })
@@ -54,7 +54,7 @@ function db.addFish(identifier, fish)
         return
     end
 
-    levels[identifier].totalFish += 1
+    levels[identifier].fishCaught += 1
 end
 
 ---@param identifier string
@@ -65,7 +65,7 @@ function db.addTotalEarned(identifier, amount)
 
     if player:getAccountMoney(peds.account) < amount then return end
 
-    levels[identifier].totalEarned += amount
+    levels[identifier].earned += amount
 end
 
 ---@param identifier string
@@ -91,6 +91,7 @@ exports('addTotalEarned', db.addTotalEarned)
 exports('changeLongestFish', db.changeLongestFish)
 
 ---@param source number
+---@return FishingStats?, table<string, FishingStats>?
 lib.callback.register('prp_fishing:getPlayerStats', function(source)
     local player = Framework.getPlayerFromId(source)
     if not player then return end
@@ -101,5 +102,21 @@ lib.callback.register('prp_fishing:getPlayerStats', function(source)
         db.createPlayer(identifier)
     end
 
-    return levels[identifier]
+    local lb = {}
+    
+    for id, stat in pairs(levels) do
+        local player = Framework.getPlayerFromIdentifier(id)
+
+        if player then
+            table.insert(lb, {
+                name = ('%s %s'):format(player:getFirstName(), player:getLastName()),
+                longestFish = stat.longestFish,
+                earned = stat.earned,
+                fishCaught = stat.fishCaught,
+                me = identifier == id
+            })
+        end
+    end
+
+    return levels[identifier], lb
 end)
