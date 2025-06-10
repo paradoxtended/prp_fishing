@@ -1,7 +1,8 @@
+import type { TabletProps } from '../../../typings/tablet';
 import { debugData } from '../../../utils/debugData';
 
 export const debugTablet = () => {
-    debugData([
+    debugData<TabletProps>([
         {
             action: 'openTablet',
             data: {
@@ -27,6 +28,17 @@ export const debugTablet = () => {
                     { name: 'Martin Horák', longestFish: 20.44, earned: 2054.25, fishCaught: 37 },
                     { name: 'Emily Nguyen', longestFish: 21.23, earned: 2129.40, fishCaught: 39 },
                     { name: 'Tobias Weber', longestFish: 26.91, earned: 2888.60, fishCaught: 47 }
+                ],
+                statistics: {
+                    earned: 5784,
+                    fishCaught: 53,
+                    longestFish: 24.62
+                },
+                shop: [
+                    { name: 'fishing_rod', label: 'Basic Fishing Rod', imageUrl: './public/titanium_rod.png', price: 150, rarity: 'uncommon' },
+                    { name: 'worms', label: 'Worms', imageUrl: './public/worms.png', price: 1, rarity: 'common' },
+                    { name: 'artificial_bait', label: 'Artificial Bait', imageUrl: './public/artificial_bait.png', price: 2, rarity: 'uncommon' },
+                    { name: 'cooler_box', label: 'Cooler Box', imageUrl: './public/fish_cooler_box_small.png', price: 300, rarity: 'rare' },
                 ]
             }
         }

@@ -1,11 +1,12 @@
 import React from "react";
 import { useNuiEvent } from "../../hooks/useNuiEvent";
-import './FishingTablet.css'
-import MainPage from "./MainPage";
-import StatsPage from "./StatsPage";
+import './index.css'
+import MainPage from "./components/MainPage";
+import StatsPage from "./components/StatsPage";
 import { fetchNui } from "../../utils/fetchNui";
-import Leaderboard from './Leaderboard';
-import type { LeaderboardProps, StatsProps } from "../../typings/tablet";
+import Leaderboard from './components/Leaderboard';
+import type { LeaderboardProps, ShopProps, StatsProps } from "../../typings/tablet";
+import ShopWrapper from "./components/shop/ShopWrapper";
 
 const FishingTablet: React.FC = () => {
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -17,6 +18,7 @@ const FishingTablet: React.FC = () => {
         fishCaught: 0,
         longestFish: 0
     });
+    const [shopItems, setShopItems] = React.useState<ShopProps[]>([])
 
     const handleClose = () => {
         const container = document.querySelector('.container') as HTMLDivElement;
@@ -45,6 +47,7 @@ const FishingTablet: React.FC = () => {
         setVisible(true);
         setLeaderboard(data.leaderboard);
         setStatistics(data.statistics);
+        setShopItems(data.shop);
 
         setTimeout(() => setShouldLoad(false), 1);
     });
@@ -62,10 +65,11 @@ const FishingTablet: React.FC = () => {
                         <i className="fa-solid fa-wifi"></i>
                     </div>
                 </div>
-                <div className="main">
+                <div className="main-tablet">
                     {currentPage === 'home' && <MainPage setPage={setCurrentPage} loading={shouldLoad} />}
                     {currentPage === 'stats' && <StatsPage stats={statistics} />}
                     {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
+                    {currentPage === 'shop' && <ShopWrapper items={shopItems} />}
                 </div>
             </div>
         )

@@ -34,7 +34,15 @@ debugData([
                 lb_fish_caught: 'Fish caught',
                 lb_total_earned: 'Earned so far',
                 lb_longest_fish: 'Longest fish caught',
-                lb_placeholder: 'Look up yourself...'
+                lb_placeholder: 'Look up yourself...',
+                shop: 'Shop',
+                shop_description: 'Here you can buy some fishing equipment to your fishing journey.',
+                shopping_cart: 'Shopping Cart',
+                fishing_equipment: 'Fishing Equipment',
+                total_cost: 'Total Cost',
+                pay_bank: 'Pay Bank',
+                pay_money: 'Pay Cash',
+                empty_cart: 'Drag shop items here'
             },
         },
     },
@@ -67,6 +75,14 @@ interface Locale {
         lb_total_earned: string;
         lb_longest_fish: string;
         lb_placeholder: string;
+        shop: string;
+        shop_description: string;
+        shopping_cart: string;
+        fishing_equipment: string;
+        total_cost: string;
+        pay_bank: string;
+        pay_money: string;
+        empty_cart: string;
     };
 }
 
@@ -104,7 +120,15 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             lb_fish_caught: '',
             lb_total_earned: '',
             lb_longest_fish: '',
-            lb_placeholder: ''
+            lb_placeholder: '',
+            shop: '',
+            shop_description: '',
+            shopping_cart: '',
+            fishing_equipment: '',
+            total_cost: '',
+            pay_bank: '',
+            pay_money: '',
+            empty_cart: ''
         },
     });
 

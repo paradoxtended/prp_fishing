@@ -24,3 +24,22 @@ export interface Base {
     nickname: string;
     challenges: ChallengeProps[];
 };
+
+export interface ShopProps {
+    name: string;
+    label: string;
+    imageUrl: string;
+    price: number;
+    rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+};
+
+export interface TabletProps {
+    leaderboard: LeaderboardProps[];
+    statistics: StatsProps;
+    shop: ShopProps[];
+};
+
+export interface CartProps {
+    name: string;
+    count: number
+}

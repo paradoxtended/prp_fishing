@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "./Loader";
-import { useLocales } from "../../providers/LocaleProvider";
-import type { StatsProps } from "../../typings/tablet";
+import { useLocales } from "../../../providers/LocaleProvider";
+import type { StatsProps } from "../../../typings/tablet";
 
 type StatsPageProps = {
     stats: StatsProps

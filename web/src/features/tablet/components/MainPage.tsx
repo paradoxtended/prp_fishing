@@ -1,7 +1,7 @@
 import React from "react";
-import { useLocales } from "../../providers/LocaleProvider";
-import type { ChallengeProps, Base } from "../../typings/tablet";
-import { fetchNui } from "../../utils/fetchNui";
+import { useLocales } from "../../../providers/LocaleProvider";
+import type { ChallengeProps, Base } from "../../../typings/tablet";
+import { fetchNui } from "../../../utils/fetchNui";
 import Loader from "./Loader";
 
 type MainPageProps = {
@@ -62,6 +62,10 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
                         <div className="card" onClick={() => setPage('leaderboard')}>
                             <img src='./leaderboard.png' />
                             <p className="label">{locale.ui.leaderboard}</p>
+                        </div>
+                        <div className="card" onClick={() => setPage('shop')}>
+                            <img src='./shop.png' />
+                            <p className="label">{locale.ui.shop}</p>
                         </div>
                     </div>
                 </div>

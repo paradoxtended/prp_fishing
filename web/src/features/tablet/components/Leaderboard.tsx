@@ -1,8 +1,8 @@
 import React from "react";
-import { useLocales } from "../../providers/LocaleProvider";
+import { useLocales } from "../../../providers/LocaleProvider";
 import Loader from './Loader'
-import type { LeaderboardProps } from "../../typings/tablet";
-import { setClipboard } from "../../utils/setClipboard";
+import type { LeaderboardProps } from "../../../typings/tablet";
+import { setClipboard } from "../../../utils/setClipboard";
 
 type LeaderboardProperties = {
     leaderboard: LeaderboardProps[];
