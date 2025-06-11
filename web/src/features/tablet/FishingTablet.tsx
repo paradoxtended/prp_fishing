@@ -7,6 +7,7 @@ import { fetchNui } from "../../utils/fetchNui";
 import Leaderboard from './components/Leaderboard';
 import type { LeaderboardProps, ShopProps, StatsProps } from "../../typings/tablet";
 import ShopWrapper from "./components/shop/ShopWrapper";
+import Sell from "./components/sell/Sell";
 
 const FishingTablet: React.FC = () => {
     const [visible, setVisible] = React.useState<boolean>(false);
@@ -70,6 +71,7 @@ const FishingTablet: React.FC = () => {
                     {currentPage === 'stats' && <StatsPage stats={statistics} />}
                     {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
                     {currentPage === 'shop' && <ShopWrapper items={shopItems} />}
+                    {currentPage === 'sell' && <Sell />}
                 </div>
             </div>
         )

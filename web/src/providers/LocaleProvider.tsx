@@ -42,7 +42,8 @@ debugData([
                 total_cost: 'Total Cost',
                 pay_bank: 'Pay Bank',
                 pay_money: 'Pay Cash',
-                empty_cart: 'Drag shop items here'
+                empty_cart: 'Drag shop items here',
+                sell: 'Sell'
             },
         },
     },
@@ -83,6 +84,7 @@ interface Locale {
         pay_bank: string;
         pay_money: string;
         empty_cart: string;
+        sell: string;
     };
 }
 
@@ -128,7 +130,8 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             total_cost: '',
             pay_bank: '',
             pay_money: '',
-            empty_cart: ''
+            empty_cart: '',
+            sell: ''
         },
     });
 

@@ -67,6 +67,10 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
                             <img src='./shop.png' />
                             <p className="label">{locale.ui.shop}</p>
                         </div>
+                        <div className="card" onClick={() => setPage('sell')}>
+                            <img src='./sell.png' />
+                            <p className="label">{locale.ui.sell}</p>
+                        </div>
                     </div>
                 </div>
                 <div className="right-side">
