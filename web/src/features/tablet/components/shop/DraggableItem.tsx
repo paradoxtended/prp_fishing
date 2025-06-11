@@ -8,7 +8,7 @@ const DraggableItem = ({ item }: { item: ShopProps }) => {
         type: 'ITEM',
         item,
         collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
+            isDragging: monitor.isDragging(),
         }),
     }));
 

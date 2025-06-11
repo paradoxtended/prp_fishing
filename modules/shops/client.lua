@@ -1,21 +1,12 @@
-local Inventory = exports.ox_inventory
-local Peds = require 'data.peds'
+---@param data { cart: { name: string, count: number }[], type: 'bank' | 'money' }
+RegisterNUICallback('buyItem', function(data, cb)
+    local success = lib.callback.await('prp_fishing:buyItem', false, data)
 
-local Shop = {}
-
----@param index integer
-function Shop.OpenShop(index)
-    if not index then return end
-
-    local coords = Peds.locations[index]?.coords or Peds.locations[index]
-    if not coords then return end
-
-    if #(GetEntityCoords(cache.ped) - coords.xyz) > 2.0 then
-        notify(locale('far_away'), 'error')
-        return
+    if success then
+        notify(locale('purchased'), 'success')
+    elseif success == false then
+        notify(locale('not_enough_' .. data.type), 'error')
     end
 
-    Inventory:openInventory('shop', { type = 'prp_fishing:fishing_equipment', id = index })
-end
-
-return Shop
+    cb(success)
+end)

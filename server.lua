@@ -14,6 +14,14 @@ function closeInventory()
     TriggerClientEvent('ox_inventory:closeInventory', source, true)
 end
 
+---Returns the NUI path of an icon.
+---@param itemName string
+---@return string?
+---@diagnostic disable-next-line: duplicate-set-field
+function getInventoryIcon(itemName)
+    return ('nui://ox_inventory/web/images/%s.png'):format(itemName) .. '?height=128'
+end
+
 ----------------------------------------------------------------------------------------------------------
 --- Script, don't touch unless you know what you're doing
 ----------------------------------------------------------------------------------------------------------
@@ -21,7 +29,7 @@ lib.versionCheck('https://github.com/paradoxtended/prp_fishing')
 
 local Inventory = exports.ox_inventory
 
-local Shop = require 'modules.shops.server'
+require 'modules.shops.server'
 local containers = require 'modules.items.server'
 require 'modules.sell.server'
 require 'modules.challenges.server'
@@ -37,7 +45,6 @@ local Utils = require 'utils.server'
 
 local busy = {}
 
-Shop.CreateShops(locale('fishing_equipment'))
 containers.createContainers()
 
 if Zones.zones then

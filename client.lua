@@ -113,7 +113,7 @@ local Zones = require 'data.zones'
 
 local Utils = require 'utils.client'
 
-local Shop = require 'modules.shops.client'
+require 'modules.shops.client'
 require 'modules.sell.client'
 require 'modules.challenges.client'
 require 'modules.rent.client'
@@ -135,12 +135,6 @@ for locationIndex, loc in ipairs(Peds.locations) do
         } or nil
 
     Utils.CreatePed(coords, model, {
-        {
-            label = locale('fishing_equipment'),
-            icon = 'store',
-            onSelect = Shop.OpenShop,
-            args = locationIndex
-        },
         {
             label = locale('sell_fish'),
             icon = 'fish',

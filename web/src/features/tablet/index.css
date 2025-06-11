@@ -397,7 +397,8 @@
     );
 }
 
-.shop-page section .leftInventory .card {
+.shop-page section .leftInventory .card,
+.item-drag-preview .card {
     height: 120px;
     width: 120px;
     cursor: pointer;
@@ -407,9 +408,11 @@
     flex-direction: column;
     position: relative;
     border: 1px solid transparent;
+    font-family: 'Oswald', sans-serif;
 }
 
-.shop-page section .leftInventory .card::before {
+.shop-page section .leftInventory .card::before,
+.item-drag-preview .card::before {
     content: '';
     pointer-events: none;
     position: absolute;
@@ -428,7 +431,8 @@
     );
 }
 
-.shop-page section .leftInventory .card .rarity {
+.shop-page section .leftInventory .card .rarity,
+.item-drag-preview .card .rarity {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -437,29 +441,34 @@
     font-family: 'Inter', sans-serif;
 }
 
-.shop-page section .leftInventory .card img {
+.shop-page section .leftInventory .card img,
+.item-drag-preview .card img {
     width: 70px; height: 70px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
+    pointer-events: none;
 }
 
-.shop-page section .leftInventory .card .card-bottom {
+.shop-page section .leftInventory .card .card-bottom,
+.item-drag-preview .card .card-bottom {
     display: flex;
     justify-content: space-between;
     z-index: 1;
     padding: 5px 5px;
 }
 
-.shop-page section .leftInventory .card .card-bottom .label {
+.shop-page section .leftInventory .card .card-bottom .label,
+.item-drag-preview .card .card-bottom .label {
     font-size: 16px;
     width: 50%;
     color: #ffffff;
 }
 
-.shop-page section .leftInventory .card .card-bottom .price {
+.shop-page section .leftInventory .card .card-bottom .price,
+.item-drag-preview .card .card-bottom .price {
     color: #a8a8a8;
     font-weight: 350;
     font-size: 12px;
@@ -637,8 +646,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #00000070;
-    border: 1px solid #2e5207;
+    background-color: #00000050;
+    border: 1px solid #444444;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     padding: 8px 10px;
@@ -651,4 +660,18 @@
 
 .shop-page section .rightInventory .buttons button:hover {
     border: 1px solid #84cc16;
+}
+
+.item-drag-preview {
+  width: 7.7vh;
+  height: 7.7vh;
+  z-index: 1;
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 7vh;
+  image-rendering: -webkit-optimize-contrast;
 }

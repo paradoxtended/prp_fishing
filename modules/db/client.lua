@@ -4,6 +4,7 @@
 
 local peds = require 'data.peds'
 local utils = require 'utils.client'
+local items = require 'data.items'
 
 local function loadLocaleFile(key)
     local file = LoadResourceFile(cache.resource, ('locales/%s.json'):format(key))
@@ -14,6 +15,29 @@ end
 
 db = {}
 
+---@return ShopItem[]
+local function convertShop()
+    local shop = {}
+
+    for _, item in pairs(items) do
+        for _, data in ipairs(item) do
+            table.insert(shop, {
+                name = data.name,
+                label = data.label or utils.GetItemLabel(data.name),
+                imageUrl = data.imageUrl or getInventoryIcon(data.name),
+                price = data.price,
+                rarity = data.rarity
+            })
+        end
+    end
+
+    table.sort(shop, function(a, b) return b.price < a.price end)
+
+    return shop
+end
+
+local shop
+
 ---@param index integer
 function db.openMenu(index)
     local coords = peds.locations[index]?.coords or peds.locations[index]
@@ -23,6 +47,10 @@ function db.openMenu(index)
         return
     end
 
+    if not shop then 
+        shop = convertShop()
+    end
+    
     local stats, lb = lib.callback.await('prp_fishing:getPlayerStats', false)
 
     SetNuiFocus(true, true)
@@ -30,7 +58,8 @@ function db.openMenu(index)
         action = 'openTablet',
         data = {
             leaderboard = lb,
-            statistics = stats
+            statistics = stats,
+            shop = shop
         }
     })
 end

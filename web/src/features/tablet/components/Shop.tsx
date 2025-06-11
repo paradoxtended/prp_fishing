@@ -5,6 +5,7 @@ import type { CartProps, ShopProps } from "../../../typings/tablet";
 import Loader from "./Loader";
 import { useLocales } from "../../../providers/LocaleProvider";
 import DraggableItem from "./shop/DraggableItem";
+import { fetchNui } from "../../../utils/fetchNui";
 
 export const getColor = (rarity: string): { text: string; background: string } => {
   switch (rarity.toLowerCase()) {
@@ -82,6 +83,12 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
         requestAnimationFrame(step);
     }, [getTotalCost()]);
 
+    const handleBuy = async (type: 'bank' | 'money') => {
+        const success = await fetchNui('buyItem', { cart: cart, type: type });
+
+        if (success) setCart([]);
+    };  
+
     return (
         visible ? (
             (
@@ -101,7 +108,7 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                         )
                                     };
 
-                                    return <div className="empty-slot"></div>
+                                    return <div key={index} className="empty-slot"></div>
                                 })}
                             </div>
                         </div>
@@ -115,60 +122,60 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                             const data = getItemProps(items, item.name);
                                             if (!data) return null;
                                             return (
-                                            <div className="item" key={index}>
-                                                <img src={data.imageUrl} />
-                                                <div className="info">
-                                                    <p style={{ color: data?.rarity === 'common' ? '#ffffff' : getColor(data.rarity || 'common').text }}>{data.rarity}</p>
-                                                    <span>{data.label}</span>
-                                                </div>
-                                                <div className="inputs">
-                                                <button onClick={() => {
-                                                    setCart(prev => {
-                                                    if (prev[index].count > 1) {
+                                                <div className="item" key={index}>
+                                                    <img src={data.imageUrl} />
+                                                    <div className="info">
+                                                        <p style={{ color: data?.rarity === 'common' ? '#ffffff' : getColor(data.rarity || 'common').text }}>{data.rarity}</p>
+                                                        <span>{data.label}</span>
+                                                    </div>
+                                                    <div className="inputs">
+                                                    <button onClick={() => {
+                                                        setCart(prev => {
+                                                        if (prev[index].count > 1) {
+                                                            const updated = [...prev];
+                                                            updated[index].count -= 1;
+                                                            return updated;
+                                                        } else {
+                                                            return prev.filter((_, i) => i !== index);
+                                                        }
+                                                        });
+                                                    }}>
+                                                        <i className="fa-solid fa-minus"></i>
+                                                    </button>
+                                                    <input
+                                                        type="number"
+                                                        value={item.count}
+                                                        min={1}
+                                                        max={100}
+                                                        onChange={(e) => {
+                                                        const raw = parseInt(e.target.value || "1", 10);
+                                                        const value = Math.max(1, Math.min(100, raw));
+                                                        setCart(prev => {
+                                                            const updated = [...prev];
+                                                            updated[index].count = value;
+                                                            return updated;
+                                                        });
+                                                        }}
+                                                    />
+                                                    <button onClick={() => {
+                                                        setCart(prev => {
                                                         const updated = [...prev];
-                                                        updated[index].count -= 1;
+                                                        if (updated[index].count < 100) {
+                                                            updated[index].count += 1;
+                                                        }
                                                         return updated;
-                                                    } else {
-                                                        return prev.filter((_, i) => i !== index);
-                                                    }
-                                                    });
-                                                }}>
-                                                    <i className="fa-solid fa-minus"></i>
-                                                </button>
-                                                <input
-                                                    type="number"
-                                                    value={item.count}
-                                                    min={1}
-                                                    max={100}
-                                                    onChange={(e) => {
-                                                    const raw = parseInt(e.target.value || "1", 10);
-                                                    const value = Math.max(1, Math.min(100, raw));
-                                                    setCart(prev => {
-                                                        const updated = [...prev];
-                                                        updated[index].count = value;
-                                                        return updated;
-                                                    });
-                                                    }}
-                                                />
-                                                <button onClick={() => {
-                                                    setCart(prev => {
-                                                    const updated = [...prev];
-                                                    if (updated[index].count < 100) {
-                                                        updated[index].count += 1;
-                                                    }
-                                                    return updated;
-                                                    });
-                                                }}>
-                                                    <i className="fa-solid fa-plus"></i>
-                                                </button>
+                                                        });
+                                                    }}>
+                                                        <i className="fa-solid fa-plus"></i>
+                                                    </button>
+                                                    </div>
+                                                    <p style={{ fontSize: '16px', color: '#c5c5c5', fontFamily: 'Inter', textAlign: 'center', width: '100px' }}>
+                                                        ${(data.price * item.count).toLocaleString('en-US')}
+                                                    </p>
+                                                    <i className="fa-regular fa-trash-can" onClick={() => {
+                                                    setCart(prev => prev.filter((_, i) => i !== index));
+                                                    }}></i>
                                                 </div>
-                                                <p style={{ fontSize: '16px', color: '#c5c5c5', fontFamily: 'Inter', textAlign: 'center', width: '100px' }}>
-                                                    ${(data.price * item.count).toLocaleString('en-US')}
-                                                </p>
-                                                <i className="fa-regular fa-trash-can" onClick={() => {
-                                                setCart(prev => prev.filter((_, i) => i !== index));
-                                                }}></i>
-                                            </div>
                                             );
                                         })}
                                     </div>
@@ -184,8 +191,8 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                 <span>${animatedTotal.toLocaleString('en-US')}</span>
                             </div>
                             <div className="buttons">
-                                <button><i className="fa-solid fa-credit-card"></i>{locale.ui.pay_bank}</button>
-                                <button><i className="fa-solid fa-coins"></i>{locale.ui.pay_money}</button>
+                                <button onClick={() => handleBuy('bank')}><i className="fa-solid fa-credit-card"></i>{locale.ui.pay_bank}</button>
+                                <button onClick={() => handleBuy('money')}><i className="fa-solid fa-coins"></i>{locale.ui.pay_money}</button>
                             </div>
                         </div>
                     </section>
