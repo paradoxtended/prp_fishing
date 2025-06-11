@@ -21,13 +21,13 @@ const DraggableItem = ({ item }: { item: ShopProps }) => {
         style={{
             background: color.background,
             color: color.text,
-            border: `1px solid ${color.text}`,
             borderBottom: `3px solid ${color.text}`,
+            '--borderColor': color.text,
             opacity: isDragging ? 0.5 : 1,
             cursor: 'pointer',
-        }}
+        } as React.CSSProperties }
         >
-            <p className="rarity">{item.rarity?.toUpperCase() || 'COMMON'}</p>
+            <p className="rarity" style={{ color: item.rarity == 'common' ? '#ffffff' : '' }}>{item.rarity?.toUpperCase() || 'COMMON'}</p>
             <img src={item.imageUrl} />
             <div className="card-bottom">
                 <p className="label">{item.label}</p>

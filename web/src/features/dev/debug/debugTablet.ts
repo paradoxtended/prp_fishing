@@ -36,6 +36,7 @@ export const debugTablet = () => {
                 },
                 shop: [
                     { name: 'fishing_rod', label: 'Basic Fishing Rod', imageUrl: './public/titanium_rod.png', price: 150, rarity: 'uncommon' },
+                    { name: 'titan_fishing_rod', label: 'Pro Fishing Rod', imageUrl: './public/titanium_rod.png', price: 450, rarity: 'epic' },
                     { name: 'worms', label: 'Worms', imageUrl: './public/worms.png', price: 1, rarity: 'common' },
                     { name: 'artificial_bait', label: 'Artificial Bait', imageUrl: './public/artificial_bait.png', price: 2, rarity: 'uncommon' },
                     { name: 'cooler_box', label: 'Cooler Box', imageUrl: './public/fish_cooler_box_small.png', price: 300, rarity: 'rare' },

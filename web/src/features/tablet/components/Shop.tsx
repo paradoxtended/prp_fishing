@@ -8,11 +8,11 @@ import DraggableItem from "./shop/DraggableItem";
 
 export const getColor = (rarity: string): { text: string; background: string } => {
   switch (rarity.toLowerCase()) {
-    case 'rare': return { text: '#0ea5e9', background: 'radial-gradient(#00000000, #0ea5e925)' };
-    case 'epic': return { text: '#6b21a8', background: 'radial-gradient(#00000000, #6b21a825)' };
+    case 'rare': return { text: '#0ea5e9', background: 'radial-gradient(#00000000, #0ea5e920)' };
+    case 'epic': return { text: '#db2777', background: 'radial-gradient(#00000000, #be185d25)' };
     case 'legendary': return { text: '#a16207', background: 'radial-gradient(#00000000, #a1620725)' };
-    case 'uncommon': return { text: '#84cc16', background: 'radial-gradient(#00000000, #84cc1625)' };
-    default: return { text: '#a8a8a8', background: 'radial-gradient(#00000000, #a8a8a825)' };
+    case 'uncommon': return { text: '#84cc16', background: 'radial-gradient(#00000050, #84cc1610)' };
+    default: return { text: '#636363', background: 'radial-gradient(#00000050, #31313150)' };
   };
 };
 
@@ -27,6 +27,7 @@ const getItemProps = (items: ShopProps[], itemName: string): ShopProps | undefin
 const Shop: React.FC<ShopProperties> = ({ items }) => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const { locale } = useLocales();
+    const [animatedTotal, setAnimatedTotal] = React.useState(0);
     const [cart, setCart] = React.useState<CartProps[]>([]);
 
     const [, dropRef] = useDrop(() => ({
@@ -59,6 +60,28 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
         }, 0);
     };
 
+    React.useEffect(() => {
+        const end = getTotalCost();
+        const start = animatedTotal;
+        const duration = 500; // ms
+        let startTime: number | null = null;
+
+        const step = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const value = Math.floor(start + (end - start) * easeOutCubic(progress));
+            setAnimatedTotal(value);
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        };
+
+        const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3); // jemná plynulosť
+
+        requestAnimationFrame(step);
+    }, [getTotalCost()]);
+
     return (
         visible ? (
             (
@@ -69,9 +92,17 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                         <div className="leftInventory">
                             <p className="title">{locale.ui.fishing_equipment}</p>
                             <div className="inv">
-                                {items.map((item, index) => (
-                                    <DraggableItem key={index} item={item} />
-                                ))}
+                                {items.map((item, index) => {
+                                    // Check if item is in inventory..
+                                    const inCart = cart.some(cartItem => cartItem.name === item.name);
+                                    if (!inCart) {
+                                        return (
+                                            <DraggableItem key={index} item={item} />
+                                        )
+                                    };
+
+                                    return <div className="empty-slot"></div>
+                                })}
                             </div>
                         </div>
                         <div className="rightInventory">
@@ -87,7 +118,7 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                             <div className="item" key={index}>
                                                 <img src={data.imageUrl} />
                                                 <div className="info">
-                                                    <p style={{ color: getColor(data.rarity || 'uncommon').text }}>{data.rarity}</p>
+                                                    <p style={{ color: data?.rarity === 'common' ? '#ffffff' : getColor(data.rarity || 'common').text }}>{data.rarity}</p>
                                                     <span>{data.label}</span>
                                                 </div>
                                                 <div className="inputs">
@@ -131,8 +162,8 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                                     <i className="fa-solid fa-plus"></i>
                                                 </button>
                                                 </div>
-                                                <p style={{ fontSize: '17px', color: '#c5c5c5', fontFamily: 'Inter', padding: '0 15px', textAlign: 'center', width: '100px' }}>
-                                                ${(data.price * item.count).toLocaleString('en-US')}
+                                                <p style={{ fontSize: '16px', color: '#c5c5c5', fontFamily: 'Inter', textAlign: 'center', width: '100px' }}>
+                                                    ${(data.price * item.count).toLocaleString('en-US')}
                                                 </p>
                                                 <i className="fa-regular fa-trash-can" onClick={() => {
                                                 setCart(prev => prev.filter((_, i) => i !== index));
@@ -150,7 +181,7 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                             </div>
                             <div className="totalCost">
                                 <p>{locale.ui.total_cost.toUpperCase()}</p>
-                                <span>${getTotalCost().toLocaleString('en-US')}</span>
+                                <span>${animatedTotal.toLocaleString('en-US')}</span>
                             </div>
                             <div className="buttons">
                                 <button><i className="fa-solid fa-credit-card"></i>{locale.ui.pay_bank}</button>

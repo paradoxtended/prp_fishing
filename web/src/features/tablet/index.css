@@ -350,10 +350,14 @@
 }
 
 .shop-page section .leftInventory {
-    border: 1px solid #9b9b9b;
+    border: 1px solid #525252;
     height: fit-content;
-    padding: 10px;
-    border-radius: 5px;
+    margin: 10px;
+    width: 50%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #00000030;
+    transform: perspective(500px) rotateY(3deg);
 }
 
 .shop-page section .leftInventory .inv {
@@ -365,16 +369,63 @@
     gap: 10px;
 }
 
-.shop-page section .leftInventory .card {
+.shop-page section .leftInventory .inv .empty-slot {
     height: 120px;
     width: 120px;
     border-radius: 3px;
-    box-shadow: 0 0 2px var(--rarity-color);
+    background: radial-gradient(#00000050, #31313150);
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.shop-page section .leftInventory .inv .empty-slot::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 3px;
+    border: 1px solid #636363;
+    mask-image: linear-gradient(
+        to bottom right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0) 100%
+    );
+}
+
+.shop-page section .leftInventory .card {
+    height: 120px;
+    width: 120px;
     cursor: pointer;
+    border-radius: 3px;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
     position: relative;
+    border: 1px solid transparent;
+}
+
+.shop-page section .leftInventory .card::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 3px;
+    border: 1px solid var(--borderColor, #999);
+    mask-image: linear-gradient(
+        to bottom right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom right,
+        rgba(0,0,0,1) 0%,
+        rgba(0,0,0,0) 100%
+    );
 }
 
 .shop-page section .leftInventory .card .rarity {
@@ -419,12 +470,16 @@
 }
 
 .shop-page section .rightInventory {
-    border: 1px solid #9b9b9b;
-    padding: 10px 0 10px 10px;
+    border: 1px solid #525252;
+    padding: 20px 0 20px 20px;
     border-radius: 5px;
     gap: 10px;
+    margin: 6px;
+    border-radius: 8px;
+    background-color: #00000030;
     width: 50%;
     height: fit-content;
+    transform: perspective(500px) rotateY(-3deg);
 }
 
 .shop-page section .rightInventory .main .cartItems {
@@ -435,8 +490,8 @@
 
 .shop-page section .rightInventory .main {
     width: 100%;
-    height: 350px;
-    padding: 5px 10px 5px 0;
+    height: 320px;
+    padding: 5px 20px 5px 0;
     position: relative;
     overflow: auto;
 }
@@ -447,19 +502,19 @@
     padding: 5px 10px;
     display: flex;
     align-items: center;
-    background-color: #a8a8a820;
+    background: radial-gradient(#00000050, #a8a8a810);
 }
 
 .shop-page section .rightInventory .main .item img { width: 80px; height: 80px; }
 
 .shop-page section .rightInventory .main .item .info {
     line-height: 22px;
-    padding-left: 20px;
+    padding-left: 10px;
     width: 40%;
 }
 
 .shop-page section .rightInventory .main .item .info p {
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .shop-page section .rightInventory .main .item button {
@@ -490,6 +545,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    padding-left: 10px;
 }
 
 .shop-page section .rightInventory .main .item input {
@@ -514,7 +570,7 @@
 }
 
 .shop-page section .rightInventory .main .item .info span {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .shop-page section .rightInventory .main .item i {
@@ -535,12 +591,13 @@
 .shop-page section .leftInventory .title,
 .shop-page section .rightInventory .title {
     font-size: 20px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
     padding-bottom: 10px;
-    border-bottom: 1px solid #9b9b9b;
 }
 
 .shop-page section .rightInventory .totalCost {
-    margin-right: 10px;
+    margin-right: 20px;
     padding: 15px 0;
     font-family: 'Inter', sans-serif;
     color: #c5c5c5;
@@ -573,7 +630,7 @@
     display: flex;
     gap: 10px;
     justify-content: flex-end;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .shop-page section .rightInventory .buttons button {
