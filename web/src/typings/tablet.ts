@@ -39,6 +39,7 @@ export interface SellProps {
     rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
     price: number;
     length: number;
+    metadata?: { label?: string; value: any; }[]
 };
 
 export interface TabletProps {
