@@ -43,7 +43,10 @@ debugData([
                 pay_bank: 'Pay Bank',
                 pay_money: 'Pay Cash',
                 empty_cart: 'Drag shop items here',
-                sell: 'Sell'
+                sell: 'Sell',
+                sell_description: 'Here you can sell all your fishes. Keep up the good work mate.',
+                sell_fishes: 'Sell Fishes',
+                no_fishes: 'You have nothing to sell, bring me some fishes.'
             },
         },
     },
@@ -85,6 +88,9 @@ interface Locale {
         pay_money: string;
         empty_cart: string;
         sell: string;
+        sell_description: string;
+        sell_fishes: string;
+        no_fishes: string;
     };
 }
 
@@ -131,7 +137,10 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             pay_bank: '',
             pay_money: '',
             empty_cart: '',
-            sell: ''
+            sell: '',
+            sell_description: '',
+            sell_fishes: '',
+            no_fishes: ''
         },
     });
 

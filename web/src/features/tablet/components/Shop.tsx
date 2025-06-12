@@ -78,7 +78,7 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
             }
         };
 
-        const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3); // jemná plynulosť
+        const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
         requestAnimationFrame(step);
     }, [getTotalCost()]);

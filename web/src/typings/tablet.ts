@@ -33,10 +33,19 @@ export interface ShopProps {
     rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
 };
 
+export interface SellProps {
+    label: string;
+    imageUrl: string;
+    rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
+    price: number;
+    length: number;
+};
+
 export interface TabletProps {
     leaderboard: LeaderboardProps[];
     statistics: StatsProps;
     shop: ShopProps[];
+    sell: SellProps[];
 };
 
 export interface CartProps {

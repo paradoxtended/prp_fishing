@@ -5,7 +5,7 @@ import MainPage from "./components/MainPage";
 import StatsPage from "./components/StatsPage";
 import { fetchNui } from "../../utils/fetchNui";
 import Leaderboard from './components/Leaderboard';
-import type { LeaderboardProps, ShopProps, StatsProps } from "../../typings/tablet";
+import type { LeaderboardProps, SellProps, ShopProps, StatsProps } from "../../typings/tablet";
 import ShopWrapper from "./components/shop/ShopWrapper";
 import Sell from "./components/sell/Sell";
 
@@ -20,6 +20,7 @@ const FishingTablet: React.FC = () => {
         longestFish: 0
     });
     const [shopItems, setShopItems] = React.useState<ShopProps[]>([])
+    const [sellable, setSellable] = React.useState<SellProps[]>([]);
 
     const handleClose = () => {
         const container = document.querySelector('.container') as HTMLDivElement;
@@ -49,6 +50,7 @@ const FishingTablet: React.FC = () => {
         setLeaderboard(data.leaderboard);
         setStatistics(data.statistics);
         setShopItems(data.shop);
+        setSellable(data.sell);
 
         setTimeout(() => setShouldLoad(false), 1);
     });
@@ -71,7 +73,7 @@ const FishingTablet: React.FC = () => {
                     {currentPage === 'stats' && <StatsPage stats={statistics} />}
                     {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
                     {currentPage === 'shop' && <ShopWrapper items={shopItems} />}
-                    {currentPage === 'sell' && <Sell />}
+                    {currentPage === 'sell' && <Sell items={sellable} />}
                 </div>
             </div>
         )

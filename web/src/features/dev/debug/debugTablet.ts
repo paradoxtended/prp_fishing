@@ -41,6 +41,10 @@ export const debugTablet = () => {
                     { name: 'artificial_bait', label: 'Artificial Bait', imageUrl: './public/artificial_bait.png', price: 2, rarity: 'uncommon' },
                     { name: 'cooler_box', label: 'Cooler Box', imageUrl: './public/fish_cooler_box_small.png', price: 300, rarity: 'rare' },
                     { name: 'large_cooler_box', label: 'Large Cooler Box', imageUrl: './public/fish_cooler_box_small.png', price: 800, rarity: 'legendary' },
+                ],
+                sell: [
+                    { label: 'Trout', imageUrl: './public/trout.png', price: 5.5, length: 4.24, rarity: 'uncommon' },
+                    { label: 'Piranha', imageUrl: './public/piranha.png', price: 8.5, length: 6.74, rarity: 'rare' },
                 ]
             }
         }

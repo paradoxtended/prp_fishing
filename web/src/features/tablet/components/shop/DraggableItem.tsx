@@ -1,12 +1,16 @@
-// components/DraggableItem.tsx
 import { useDrag } from 'react-dnd';
-import type { ShopProps } from "../../../../typings/tablet";
+import type { SellProps, ShopProps } from "../../../../typings/tablet";
 import { getColor } from '../Shop';
 
-const DraggableItem = ({ item }: { item: ShopProps }) => {
+type DraggableItemProps = {
+    item: ShopProps | SellProps;
+    index: number; // <-- pridaj index
+};
+
+const DraggableItem = ({ item, index }: DraggableItemProps) => {
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: 'ITEM',
-        item,
+        item: { ...item, index },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
@@ -16,18 +20,20 @@ const DraggableItem = ({ item }: { item: ShopProps }) => {
 
     return (
         <div
-        ref={dragRef as unknown as React.Ref<HTMLDivElement>}
-        className="card"
-        style={{
-            background: color.background,
-            color: color.text,
-            borderBottom: `3px solid ${color.text}`,
-            '--borderColor': color.text,
-            opacity: isDragging ? 0.5 : 1,
-            cursor: 'pointer',
-        } as React.CSSProperties }
+            ref={dragRef as unknown as React.Ref<HTMLDivElement>}
+            className="card"
+            style={{
+                background: color.background,
+                color: color.text,
+                borderBottom: `3px solid ${color.text}`,
+                '--borderColor': color.text,
+                opacity: isDragging ? 0.5 : 1,
+                cursor: 'pointer',
+            } as React.CSSProperties}
         >
-            <p className="rarity" style={{ color: item.rarity == 'common' ? '#ffffff' : '' }}>{item.rarity?.toUpperCase() || 'COMMON'}</p>
+            <p className="rarity" style={{ color: item.rarity === 'common' ? '#ffffff' : '' }}>
+                {item.rarity?.toUpperCase() || 'COMMON'}
+            </p>
             <img src={item.imageUrl} />
             <div className="card-bottom">
                 <p className="label">{item.label}</p>

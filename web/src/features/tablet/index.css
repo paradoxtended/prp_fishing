@@ -209,14 +209,16 @@
 
 .stats-page .title-page,
 .leaderboard-page .title-page,
-.shop-page .shop-title {
+.shop-page .shop-title,
+.sell-page .sell-title {
     font-size: 45px;
     font-weight: 300;
 }
 
 .stats-page .description-page,
 .leaderboard-page .description-page,
-.shop-page .shop-description {
+.shop-page .shop-description,
+.sell-page .sell-description {
     color: #a1a1a1;
     font-size: 18px;
 }
@@ -357,7 +359,8 @@
     background-color: #83cc1650;
 }
 
-.shop-page section {
+.shop-page section,
+.sell-page section {
     height: 500px;
     width: 97%;
     margin-top: 15px;
@@ -376,16 +379,33 @@
     transform: perspective(500px) rotateY(3deg);
 }
 
-.shop-page section .leftInventory .inv {
-    margin-top: 5px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    overflow: auto;
-    place-items: center;
-    gap: 10px;
+.sell-page section .leftInventory {
+    border: 1px solid #525252;
+    height: 450px; /* Fixed height */
+    margin: 10px;
+    width: 50%;
+    padding: 20px 0 20px 20px;
+    border-radius: 8px;
+    background-color: #00000030;
+    transform: perspective(500px) rotateY(3deg);
 }
 
-.shop-page section .leftInventory .inv .empty-slot {
+.shop-page section .leftInventory .inv,
+.sell-page section .leftInventory .inv {
+    margin-top: 5px;
+    display: grid;
+    height: 95%;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.shop-page section .leftInventory .inv .empty-slot,
+.sell-page section .leftInventory .inv .empty-slot {
     height: 120px;
     width: 120px;
     border-radius: 3px;
@@ -394,7 +414,8 @@
     position: relative;
 }
 
-.shop-page section .leftInventory .inv .empty-slot::before {
+.shop-page section .leftInventory .inv .empty-slot::before,
+.sell-page section .leftInventory .inv .empty-slot::before {
     content: '';
     pointer-events: none;
     position: absolute;
@@ -414,7 +435,8 @@
 }
 
 .shop-page section .leftInventory .card,
-.item-drag-preview .card {
+.item-drag-preview .card,
+.sell-page section .leftInventory .card {
     height: 120px;
     width: 120px;
     cursor: pointer;
@@ -428,7 +450,8 @@
 }
 
 .shop-page section .leftInventory .card::before,
-.item-drag-preview .card::before {
+.item-drag-preview .card::before,
+.sell-page section .leftInventory .card::before {
     content: '';
     pointer-events: none;
     position: absolute;
@@ -448,7 +471,8 @@
 }
 
 .shop-page section .leftInventory .card .rarity,
-.item-drag-preview .card .rarity {
+.item-drag-preview .card .rarity,
+.sell-page section .leftInventory .card .rarity {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -458,7 +482,8 @@
 }
 
 .shop-page section .leftInventory .card img,
-.item-drag-preview .card img {
+.item-drag-preview .card img,
+.sell-page section .leftInventory .card img {
     width: 70px; height: 70px;
     position: absolute;
     top: 50%;
@@ -469,7 +494,8 @@
 }
 
 .shop-page section .leftInventory .card .card-bottom,
-.item-drag-preview .card .card-bottom {
+.item-drag-preview .card .card-bottom,
+.sell-page section .leftInventory .card .card-bottom {
     display: flex;
     justify-content: space-between;
     z-index: 1;
@@ -477,14 +503,16 @@
 }
 
 .shop-page section .leftInventory .card .card-bottom .label,
-.item-drag-preview .card .card-bottom .label {
+.item-drag-preview .card .card-bottom .label,
+.sell-page section .leftInventory .card-bottom .label {
     font-size: 16px;
     width: 50%;
     color: #ffffff;
 }
 
 .shop-page section .leftInventory .card .card-bottom .price,
-.item-drag-preview .card .card-bottom .price {
+.item-drag-preview .card .card-bottom .price,
+.sell-page section .leftInventory .card-bottom .price {
     color: #a8a8a8;
     font-weight: 350;
     font-size: 12px;
@@ -614,6 +642,7 @@
 }
 
 .shop-page section .leftInventory .title,
+.sell-page section .leftInventory .title,
 .shop-page section .rightInventory .title {
     font-size: 20px;
     font-weight: 600;
