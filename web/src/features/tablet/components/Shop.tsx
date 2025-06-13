@@ -1,7 +1,7 @@
 import React from "react";
 // components/CartDropzone.tsx
 import { useDrop } from 'react-dnd';
-import type { CartProps, ShopProps } from "../../../typings/tablet";
+import type { CartProps, SellProps, ShopProps } from "../../../typings/tablet";
 import Loader from "./Loader";
 import { useLocales } from "../../../providers/LocaleProvider";
 import DraggableItem from "./shop/DraggableItem";
@@ -21,8 +21,8 @@ type ShopProperties = {
     items: ShopProps[]
 };
 
-const getItemProps = (items: ShopProps[], itemName: string): ShopProps | undefined => {
-    return items.find(item => item.name === itemName);
+export const getItemProps = (items: ShopProps[] | SellProps[], itemName: string): ShopProps | SellProps | undefined => {
+    return items.find(item => item.label === itemName || item?.name === itemName);
 };
 
 const Shop: React.FC<ShopProperties> = ({ items }) => {

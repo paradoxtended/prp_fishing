@@ -15,7 +15,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ item, position, isDragging })
             style={{
                 top: position.y + 15,
                 left: position.x,
-                transform: 'translateX(-50%)',
+                transform: 'translate(-50%)'
             }}
             onMouseDown={(e) => e.stopPropagation()}
         >

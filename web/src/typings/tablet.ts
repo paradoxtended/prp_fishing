@@ -38,6 +38,7 @@ export interface SellProps {
     imageUrl: string;
     rarity?: 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary';
     price: number;
+    name?: string;
     length: number;
     metadata?: { label?: string; value: any; }[]
 };

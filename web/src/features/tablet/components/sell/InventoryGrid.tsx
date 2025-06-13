@@ -4,28 +4,49 @@ import DraggableItem from '../shop/DraggableItem';
 import type { SellProps } from '../../../../typings/tablet';
 
 type InventoryGridProps = {
-    items: SellProps[];
-    setItems: React.Dispatch<React.SetStateAction<SellProps[]>>;
+    items: (SellProps | null)[];
+    section: 'inv' | 'cart';
+    setInventory: React.Dispatch<React.SetStateAction<{
+        inv: (SellProps | null)[];
+        cart: (SellProps | null)[];
+    }>>;
 };
 
-const InventoryGrid: React.FC<InventoryGridProps> = ({ items, setItems }) => {
-    const moveItem = (fromIndex: number, toIndex: number) => {
-        setItems((prevItems) => {
-            const updated = [...prevItems];
-            const temp = updated[toIndex];
-            updated[toIndex] = updated[fromIndex];
-            updated[fromIndex] = temp;
-            return updated;
+const InventoryGrid: React.FC<InventoryGridProps> = ({ items, section, setInventory }) => {
+    const moveItem = (
+        fromSection: 'inv' | 'cart',
+        fromIndex: number,
+        toSection: 'inv' | 'cart',
+        toIndex: number
+    ) => {
+        setInventory((prev) => {
+            const newInv = [...prev.inv];
+            const newCart = [...prev.cart];
+
+            const sections: Record<string, (SellProps | null)[]> = {
+                inv: newInv,
+                cart: newCart,
+            };
+
+            const temp = sections[toSection][toIndex];
+            sections[toSection][toIndex] = sections[fromSection][fromIndex];
+            sections[fromSection][fromIndex] = temp;
+
+            return {
+                inv: newInv,
+                cart: newCart,
+            };
         });
     };
 
     return (
         <div className="inv">
-            {Array.from({ length: 16 }).map((_, index) => (
+            {items.map((item, index) => (
                 <InventorySlot
                     key={index}
                     index={index}
-                    item={items[index] || null}
+                    item={item}
+                    section={section}
                     moveItem={moveItem}
                 />
             ))}
@@ -39,20 +60,26 @@ export default InventoryGrid;
 const InventorySlot: React.FC<{
     index: number;
     item: SellProps | null;
-    moveItem: (from: number, to: number) => void;
-}> = ({ index, item, moveItem }) => {
+    section: 'inv' | 'cart';
+    moveItem: (
+        fromSection: 'inv' | 'cart',
+        fromIndex: number,
+        toSection: 'inv' | 'cart',
+        toIndex: number
+    ) => void;
+}> = ({ index, item, section, moveItem }) => {
     const [, dropRef] = useDrop({
         accept: 'ITEM',
-        drop: (dragged: { index: number }) => {
-            if (dragged.index !== index) {
-                moveItem(dragged.index, index);
+        drop: (dragged: { index: number; section: 'inv' | 'cart' }) => {
+            if (dragged.index !== index || dragged.section !== section) {
+                moveItem(dragged.section, dragged.index, section, index);
             }
         }
     });
 
     return (
         <div ref={dropRef as unknown as React.Ref<HTMLDivElement>} className="slot">
-            {item ? <DraggableItem item={item} index={index} /> : <div className="empty-slot" />}
+            {item ? <DraggableItem key={item.label} item={item} slotIndex={index} section={section} /> : <div className="empty-slot" />}
         </div>
     );
 };

@@ -368,6 +368,8 @@
     gap: 50px;
 }
 
+.sell-page section { gap: 0; }
+
 .shop-page section .leftInventory {
     border: 1px solid #525252;
     height: fit-content;
@@ -379,7 +381,8 @@
     transform: perspective(500px) rotateY(3deg);
 }
 
-.sell-page section .leftInventory {
+.sell-page section .leftInventory,
+.sell-page section .rightInventory {
     border: 1px solid #525252;
     height: 450px; /* Fixed height */
     margin: 10px;
@@ -390,8 +393,9 @@
     transform: perspective(500px) rotateY(3deg);
 }
 
-.shop-page section .leftInventory .inv,
-.sell-page section .leftInventory .inv {
+.sell-page section .rightInventory { transform: perspective(500px) rotateY(-3deg); }
+
+.shop-page section .leftInventory .inv {
     margin-top: 5px;
     display: grid;
     height: 95%;
@@ -404,8 +408,26 @@
     overflow-x: hidden;
 }
 
+.sell-page section .leftInventory .inv,
+.sell-page section .rightInventory .inv {
+    margin-top: 5px;
+    display: grid;
+    height: 95%;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    place-items: center;
+    gap: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sell-page section .rightInventory .inv { height: 280px; overflow: hidden; }
+
 .shop-page section .leftInventory .inv .empty-slot,
-.sell-page section .leftInventory .inv .empty-slot {
+.sell-page section .leftInventory .inv .empty-slot,
+.sell-page section .rightInventory .inv .empty-slot {
     height: 120px;
     width: 120px;
     border-radius: 3px;
@@ -415,7 +437,8 @@
 }
 
 .shop-page section .leftInventory .inv .empty-slot::before,
-.sell-page section .leftInventory .inv .empty-slot::before {
+.sell-page section .leftInventory .inv .empty-slot::before,
+.sell-page section .rightInventory .inv .empty-slot::before {
     content: '';
     pointer-events: none;
     position: absolute;
@@ -436,7 +459,8 @@
 
 .shop-page section .leftInventory .card,
 .item-drag-preview .card,
-.sell-page section .leftInventory .card {
+.sell-page section .leftInventory .card,
+.sell-page section .rightInventory .card {
     height: 120px;
     width: 120px;
     cursor: pointer;
@@ -451,7 +475,8 @@
 
 .shop-page section .leftInventory .card::before,
 .item-drag-preview .card::before,
-.sell-page section .leftInventory .card::before {
+.sell-page section .leftInventory .card::before,
+.sell-page section .rightInventory .card::before {
     content: '';
     pointer-events: none;
     position: absolute;
@@ -472,7 +497,8 @@
 
 .shop-page section .leftInventory .card .rarity,
 .item-drag-preview .card .rarity,
-.sell-page section .leftInventory .card .rarity {
+.sell-page section .leftInventory .card .rarity,
+.sell-page section .rightInventory .card .rarity {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -483,7 +509,8 @@
 
 .shop-page section .leftInventory .card img,
 .item-drag-preview .card img,
-.sell-page section .leftInventory .card img {
+.sell-page section .leftInventory .card img,
+.sell-page section .rightInventory .card img {
     width: 70px; height: 70px;
     position: absolute;
     top: 50%;
@@ -495,7 +522,8 @@
 
 .shop-page section .leftInventory .card .card-bottom,
 .item-drag-preview .card .card-bottom,
-.sell-page section .leftInventory .card .card-bottom {
+.sell-page section .leftInventory .card .card-bottom,
+.sell-page section .rightInventory .card .card-bottom {
     display: flex;
     justify-content: space-between;
     z-index: 1;
@@ -504,7 +532,8 @@
 
 .shop-page section .leftInventory .card .card-bottom .label,
 .item-drag-preview .card .card-bottom .label,
-.sell-page section .leftInventory .card-bottom .label {
+.sell-page section .leftInventory .card-bottom .label,
+.sell-page section .rightInventory .card-bottom .label {
     font-size: 16px;
     width: 50%;
     color: #ffffff;
@@ -512,7 +541,8 @@
 
 .shop-page section .leftInventory .card .card-bottom .price,
 .item-drag-preview .card .card-bottom .price,
-.sell-page section .leftInventory .card-bottom .price {
+.sell-page section .leftInventory .card-bottom .price,
+.sell-page section .rightInventory .card-bottom .price {
     color: #a8a8a8;
     font-weight: 350;
     font-size: 12px;
@@ -643,6 +673,7 @@
 
 .shop-page section .leftInventory .title,
 .sell-page section .leftInventory .title,
+.sell-page section .rightInventory .title,
 .shop-page section .rightInventory .title {
     font-size: 20px;
     font-weight: 600;
@@ -663,6 +694,16 @@
     border-top: 1px solid #969696;
 }
 
+.sell-page section .rightInventory .totalCost {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 300;
+}
+
 .shop-page section .rightInventory .main .empty {
     position: absolute;
     top: 50%;
@@ -674,20 +715,25 @@
 .shop-page section .rightInventory .main .empty p { color: #8b8b8b; }
 .shop-page section .rightInventory .main .empty i { color: #afafaf; }
 
-.shop-page section .rightInventory .totalCost span {
+.shop-page section .rightInventory .totalCost span,
+.sell-page section .rightInventory .totalCost span {
     color: #ffffff;
     font-weight: 600;
     font-size: 22px;
 }
 
-.shop-page section .rightInventory .buttons {
+.shop-page section .rightInventory .buttons,
+.sell-page section .rightInventory .buttons {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
     margin-right: 20px;
 }
 
-.shop-page section .rightInventory .buttons button {
+.sell-page section .rightInventory .buttons { margin-top: 10px; }
+
+.shop-page section .rightInventory .buttons button,
+.sell-page section .rightInventory .buttons button {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -703,17 +749,22 @@
     transition: all 0.3s;
 }
 
-.shop-page section .rightInventory .buttons button:hover {
+.shop-page section .rightInventory .buttons button:hover,
+.sell-page section .rightInventory .buttons button:hover {
     border: 1px solid #84cc16;
 }
 
 .sell-page .contextMenu {
     width: max-content;
-    z-index: 10;
+    z-index: 2;
     position: absolute;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .sell-page .contextMenu .metadata {

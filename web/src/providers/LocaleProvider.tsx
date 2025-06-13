@@ -45,8 +45,10 @@ debugData([
                 empty_cart: 'Drag shop items here',
                 sell: 'Sell',
                 sell_description: 'Here you can sell all your fishes. Keep up the good work mate.',
+                sell_inventory: 'Sell Inventory',
                 sell_fishes: 'Sell Fishes',
-                no_fishes: 'You have nothing to sell, bring me some fishes.'
+                no_fishes: 'You have nothing to sell, bring me some fishes.',
+                sell_get_paid: 'Get Paid'
             },
         },
     },
@@ -91,6 +93,8 @@ interface Locale {
         sell_description: string;
         sell_fishes: string;
         no_fishes: string;
+        sell_inventory: string;
+        sell_get_paid: string;
     };
 }
 
@@ -140,7 +144,9 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             sell: '',
             sell_description: '',
             sell_fishes: '',
-            no_fishes: ''
+            no_fishes: '',
+            sell_inventory: '',
+            sell_get_paid: ''
         },
     });
 
