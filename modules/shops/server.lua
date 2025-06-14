@@ -1,14 +1,14 @@
 local items = require 'data.items'
 
----Returning if bought item is valid (not some strange, f.e. weapon or money...) and the second parameter is item's data
+---Returning if bought item is valid (not some strange, f.e. weapon or money...)
 ---@param cart { name: string, count: number }[]
----@return boolean, ShopItem?
+---@return boolean
 local function getItemData(cart)
     for _, item in pairs(items) do
         for _, data in ipairs(item) do
             for _, cartItem in ipairs(cart) do
                 if data.name == cartItem.name then
-                    return true, data
+                    return true
                 end
             end
         end
@@ -22,10 +22,14 @@ end
 local function getTotalPrice(cart)
     local price = 0
 
-    local valid, data = getItemData(cart)
-
-    if valid and data then
-        price += data.price
+   for _, item in pairs(items) do
+        for _, data in ipairs(item) do
+            for _, cartItem in ipairs(cart) do
+                if data.name == cartItem.name then
+                    price += data.price * cartItem.count
+                end
+            end
+        end
     end
 
     return price
@@ -50,8 +54,9 @@ lib.callback.register('prp_fishing:buyItem', function(source, data)
     if price > 0 and player:getAccountMoney(type) >= price then
         for _, cart in ipairs(cart) do
             player:addItem(cart.name, cart.count)
-            player:removeAccountMoney(type, price)
         end
+
+        player:removeAccountMoney(type, price)
 
         return true
     end

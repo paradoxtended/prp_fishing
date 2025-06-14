@@ -423,7 +423,7 @@
     overflow-x: hidden;
 }
 
-.sell-page section .rightInventory .inv { height: 280px; overflow: hidden; }
+.sell-page section .rightInventory .inv { height: 280px; overflow: visible; }
 
 .shop-page section .leftInventory .inv .empty-slot,
 .sell-page section .leftInventory .inv .empty-slot,

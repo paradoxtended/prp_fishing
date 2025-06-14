@@ -136,12 +136,6 @@ for locationIndex, loc in ipairs(Peds.locations) do
 
     Utils.CreatePed(coords, model, {
         {
-            label = locale('sell_fish'),
-            icon = 'fish',
-            onSelect = selling.openMenu,
-            args = locationIndex
-        },
-        {
             label = locale('open_tablet'),
             icon = 'tablet',
             onSelect = db.openMenu,

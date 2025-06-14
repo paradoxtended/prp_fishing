@@ -4,10 +4,7 @@ import type { SellProps } from "../../../../typings/tablet";
 import { useLocales } from "../../../../providers/LocaleProvider";
 import InventoryGrid from "./InventoryGrid";
 import React from "react";
-
-type Properties = {
-    items: SellProps[]
-};
+import { fetchNui } from "../../../../utils/fetchNui";
 
 const getTotalCost = (cart: (SellProps | null)[]): number => {
     return cart.reduce((total, item) => {
@@ -16,33 +13,40 @@ const getTotalCost = (cart: (SellProps | null)[]): number => {
     }, 0);
 };
  
-const Sell: React.FC<Properties> = ({ items }) => {
+const Sell: React.FC = () => {
     const [animatedTotal, setAnimatedTotal] = React.useState(0);
     const { locale } = useLocales();
     const [visible, setVisible] = useState(false);
     const [inventory, setInventory] = useState<{
         inv: (SellProps | null)[];
         cart: (SellProps | null)[];
-    }>(() => {
-        const initInv = new Array(16).fill(null);
-        const initCart = new Array(8).fill(null);
+    }>({ inv: [], cart: [] });
 
-        items.forEach((item, i) => {
-            if (i < 16) initInv[i] = item;
-            else if (i < 24) initCart[i - 16] = item;
+    async function getSellableItems() {
+        const data: SellProps[] = await fetchNui('getSellableFishes');
+        setInventory(() => {
+            const initInv = new Array(16).fill(null); // 16 slots in inv
+            const initCart = new Array(8).fill(null); // 8 slots in selling part
+            
+            data.forEach((item, i) => {
+                if (i < 16) initInv[i] = item;
+                else if (i < 24) initCart[i - 16] = item;
+            });
+
+            return { inv: initInv, cart: initCart };
         });
-
-        return { inv: initInv, cart: initCart };
-    });
+    };
 
     useEffect(() => {
         if (visible) return;
+
+        getSellableItems();
+
         setTimeout(() => setVisible(true), 500);
     }, [visible]);
     
     React.useEffect(() => {
         const end = getTotalCost(inventory.cart);
-        console.log(end)
         const start = animatedTotal;
         const duration = 500;
         let startTime: number | null = null;
@@ -60,6 +64,13 @@ const Sell: React.FC<Properties> = ({ items }) => {
 
         requestAnimationFrame(step);
     }, [inventory.cart]);
+
+    async function sell() {
+        const success = await fetchNui('sellFishes', inventory.cart);
+        
+        if (success)
+            getSellableItems();
+    };
 
     return (
         visible ? (
@@ -79,7 +90,7 @@ const Sell: React.FC<Properties> = ({ items }) => {
                             <span>${animatedTotal.toLocaleString('en-US')}</span>
                         </div>
                         <div className="buttons">
-                            <button><i className="fa-solid fa-coins"></i>{locale.ui.pay_money}</button>
+                            <button onClick={async () => sell()}><i className="fa-solid fa-coins"></i>{locale.ui.sell_get_paid}</button>
                         </div>
                     </div>
                 </section>

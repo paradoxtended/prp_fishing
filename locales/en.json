@@ -28,7 +28,13 @@
         "total_cost": "Total Cost",
         "pay_bank": "Pay Bank",
         "pay_money": "Pay Cash",
-        "empty_cart": "Drag shop items here"
+        "empty_cart": "Drag shop items here",
+        "sell": "Sell",
+        "sell_description": "Here you can sell all your fishes. Keep up the good work mate.",
+        "sell_inventory": "Sell Inventory",
+        "sell_fishes": "Sell Fishes",
+        "no_fishes": "You have nothing to sell, bring me some fishes.",
+        "sell_get_paid": "Get Paid"
     },
     "fishing_equipment": "Fishing Equipment",
     "fishing_challenges": "Fishing Challenges",
@@ -89,5 +95,7 @@
     "searching_fishing_net": "Searching fishing net...",
     "took_fishing_net": "Fishing net was successfully took.",
     "too_close_fishing_net": "You are too close to another fishing net.",
-    "open_tablet": "Open tablet"
+    "open_tablet": "Open tablet",
+    "fish_length2": "Fish Length:",
+    "nothing_to_sell": "You have nothing to sell."
 }
