@@ -191,8 +191,8 @@ const Shop: React.FC<ShopProperties> = ({ items }) => {
                                 <span>${animatedTotal.toLocaleString('en-US')}</span>
                             </div>
                             <div className="buttons">
-                                <button onClick={() => handleBuy('bank')}><i className="fa-solid fa-credit-card"></i>{locale.ui.pay_bank}</button>
-                                <button onClick={() => handleBuy('money')}><i className="fa-solid fa-coins"></i>{locale.ui.pay_money}</button>
+                                <button onClick={() => handleBuy('bank')}><i className="hgi hgi-stroke hgi-credit-card"></i>{locale.ui.pay_bank}</button>
+                                <button onClick={() => handleBuy('money')}><i className="hgi hgi-stroke hgi-coins-02"></i>{locale.ui.pay_money}</button>
                             </div>
                         </div>
                     </section>

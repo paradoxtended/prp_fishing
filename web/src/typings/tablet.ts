@@ -48,9 +48,17 @@ export interface TabletProps {
     statistics: StatsProps;
     shop: ShopProps[];
     sell: SellProps[];
+    boats: BoatProps[];
 };
 
 export interface CartProps {
     name: string;
     count: number
+}
+
+export interface BoatProps {
+    name: string;
+    price: number;
+    image?: string;
+    description?: string;
 }

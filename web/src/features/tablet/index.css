@@ -18,8 +18,8 @@
     font-family: 'Oswald', sans-serif;
     width: 1200px;
     height: 700px;
-    background: linear-gradient(#000000, #1a2e05);
-    border-radius: 5px;
+    background: linear-gradient(#000000f9, #1a2e05f9);
+    border-radius: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -30,10 +30,24 @@
     overflow: hidden;
 }
 
+.container::before {
+  content: "";
+  position: absolute;
+  left: -200px;
+  bottom: -200px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,255,0,0.2) 0%, transparent 90%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .header {
-    background-color: #0a0a0a;
-    height: 40px;
-    padding: 0 15px;
+    background-color: #050505;
+    border-bottom: 1px solid #252525;
+    height: 45px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,7 +101,7 @@
     height: 140px;
     width: 120px;
     border-radius: 7px;
-    background: linear-gradient(135deg, #a8a8a801 15%, #a8a8a830);
+    background: linear-gradient(135deg, #a8a8a800 5%, #a8a8a830);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -104,20 +118,23 @@
     border-radius: 7px;
     border: 1px solid #636363;
     mask-image: linear-gradient(
-        to top left,
+        to left,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,0) 100%
     );
     -webkit-mask-image: linear-gradient(
-        to top left,
+        to left,
         rgba(0,0,0,1) 0%,
         rgba(0,0,0,0) 100%
     );
 }
 
 .main-page .left-side .cards .card img {
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    background-color: #080808e0;
+    padding: 10px;
+    height: 100px;
+    border-radius: 10px;
 }
 
 .main-page .left-side .cards .card .label {
@@ -210,7 +227,8 @@
 .stats-page .title-page,
 .leaderboard-page .title-page,
 .shop-page .shop-title,
-.sell-page .sell-title {
+.sell-page .sell-title,
+.rent-page .rent-title {
     font-size: 45px;
     font-weight: 300;
 }
@@ -218,7 +236,8 @@
 .stats-page .description-page,
 .leaderboard-page .description-page,
 .shop-page .shop-description,
-.sell-page .sell-description {
+.sell-page .sell-description,
+.rent-page .rent-description {
     color: #a1a1a1;
     font-size: 18px;
 }
@@ -434,6 +453,12 @@
     background: radial-gradient(#00000050, #31313150);
     border: 1px solid transparent;
     position: relative;
+}
+
+.shop-page section .leftInventory .inv .empty-slot:hover,
+.sell-page section .leftInventory .inv .empty-slot:hover,
+.sell-page section .rightInventory .inv .empty-slot:hover {
+    background: radial-gradient(#00000050, #42424250);
 }
 
 .shop-page section .leftInventory .inv .empty-slot::before,
@@ -823,3 +848,77 @@
   background-size: 7vh;
   image-rendering: -webkit-optimize-contrast;
 }
+
+.rent-page section {
+    width: 100%;
+    margin-top: 30px;
+    height: 475px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
+    padding: 5px 30px 5px 0;
+}
+
+.rent-page section .card {
+    border: 1px solid #303030;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    background: linear-gradient(90deg, #000000, #00000000);
+    z-index: 1;
+    transition: all 250ms;
+}
+
+.rent-page section .card:hover {
+    transform: perspective(1000px) rotateY(3deg) translateX(20px);
+    border: 1px solid #84cc16;
+}
+
+.rent-page section .card img {
+    border-radius: 5px;
+    width: 164px;
+    height: 92px;
+}
+
+.rent-page section .card .title {
+    font-size: 24px;
+}
+
+.rent-page section .card .description {
+    font-family: 'Inter', sans-serif;
+    color: #a8a8a8;
+    width: 550px;
+}
+
+.rent-page section .card button {
+    font-family: Inter, sans-serif;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #1a2e05;
+    padding: 8px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: all 200ms;
+}
+
+.rent-page section .card button:hover {
+    border: 1px solid #84cc16;
+}
+
+.rent-page section .card button:active {
+    background-color: #84cc1650;
+}
+
+.rent-page section .card .price {
+    font-family: Inter;
+    margin-top: 10px;
+    color: #a8a8a8;
+}
+
+.rent-page section .card .price span { color: #84cc16; font-weight: 600; }

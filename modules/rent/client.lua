@@ -24,16 +24,6 @@ end
 
 local peds = require 'data.peds'
 
-local function getVehicleLabel(model)
-    local label = GetLabelText(GetDisplayNameFromVehicleModel(model))
-
-    if label == 'NULL' then
-        label = GetDisplayNameFromVehicleModel(model)
-    end
-
-    return label
-end
-
 ---@CPoint?
 local point
 local shown = false
@@ -90,27 +80,34 @@ function rent.spawnBoat(boat, locationIndex)
     end)
 end
 
----@param data { locationIndex: integer, index: integer }
-function rent.rentBoat(data)
-    local boat = peds.renting.boats[data.index]
-    Wait(50) -- Mandatory, because nui focus will be set to false
-    local confirmed = alertDialog({
-        header = locale('rent_boat'),
-        content = locale('rent_content', boat.price),
-        typing = true,
-    }) == 'confirm'
+---@param index integer
+function rent.rentBoat(index)
+    local boat = peds.renting.boats[index]
 
-    if not confirmed then return end
+    if not boat then return end
 
-    local success, msg = lib.callback.await('prp_fishing:rentBoat', false, data.index)
+    local success, msg = lib.callback.await('prp_fishing:rentBoat', false, index)
+    local locationIndex = db.locationIndex()
 
-    if success then
-        rent.spawnBoat(boat, data.locationIndex)
+    if success and locationIndex then
+        rent.spawnBoat(boat, locationIndex)
         notify(locale('rented_boat'), 'success')
     else
         notify(msg or locale('not_enough_' .. peds.account), 'error')
     end
 end
+
+RegisterNUICallback('rentVehicle', function (id, cb)
+    cb(1)
+
+    if math.type(tonumber(id)) == 'float' then
+        id = math.tointeger(id)
+    elseif tonumber(id) then
+        id += 1
+    end
+
+    rent.rentBoat(id)
+end)
 
 ---@param locationIndex integer
 function rent.openMenu(locationIndex)

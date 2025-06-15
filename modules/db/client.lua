@@ -13,11 +13,23 @@ local function loadLocaleFile(key)
     return file and json.decode(file) or {}
 end
 
+table.sort(peds.renting.boats, function (a, b) return b.price < a.price end)
+
 db = {}
 
+local function getVehicleLabel(model)
+    local label = GetLabelText(GetDisplayNameFromVehicleModel(model))
+
+    if label == 'NULL' then
+        label = GetDisplayNameFromVehicleModel(model)
+    end
+
+    return label
+end
+
 ---@return ShopItem[]
-local function convertShop()
-    local shop = {}
+local function convert()
+    local shop, boats = {}, {}
 
     for _, item in pairs(items) do
         for _, data in ipairs(item) do
@@ -31,12 +43,21 @@ local function convertShop()
         end
     end
 
+    for _, boat in ipairs(peds.renting.boats) do
+        table.insert(boats, {
+            name = getVehicleLabel(boat.model),
+            price = boat.price,
+            image = boat.image,
+            description = boat.description
+        })
+    end
+
     table.sort(shop, function(a, b) return b.price < a.price end)
 
-    return shop
+    return shop, boats
 end
 
-local shop
+local shop, boats, locationIndex
 
 ---@param index integer
 function db.openMenu(index)
@@ -47,11 +68,14 @@ function db.openMenu(index)
         return
     end
 
-    if not shop then 
-        shop = convertShop()
+    if not shop or not boats then 
+        shop, boats = convert()
     end
     
     local stats, lb = lib.callback.await('prp_fishing:getPlayerStats', false)
+    local gameTime = ('%s:%s %s'):format(GetClockHours() > 12 and GetClockHours() - 12 or GetClockHours(), 
+        string.format('%02d', GetClockMinutes()),
+        GetClockHours() > 12 and 'PM' or 'AM')
 
     SetNuiFocus(true, true)
     SendNUIMessage({ 
@@ -59,9 +83,13 @@ function db.openMenu(index)
         data = {
             leaderboard = lb,
             statistics = stats,
-            shop = shop
+            shop = shop,
+            boats = peds.locations[index]?.renting and boats or {},
+            time = gameTime
         }
     })
+
+    locationIndex = index
 end
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -122,4 +150,11 @@ end)
 RegisterNUICallback('closeTablet', function(_, cb)
     cb(1)
     SetNuiFocus(false, false)
+
+    -- Variable for renting ...
+    locationIndex = nil
 end)
+
+function db.locationIndex()
+    return locationIndex
+end

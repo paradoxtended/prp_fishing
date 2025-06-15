@@ -90,7 +90,7 @@ const Sell: React.FC = () => {
                             <span>${animatedTotal.toLocaleString('en-US')}</span>
                         </div>
                         <div className="buttons">
-                            <button onClick={async () => sell()}><i className="fa-solid fa-coins"></i>{locale.ui.sell_get_paid}</button>
+                            <button onClick={async () => sell()}><i className="hgi hgi-stroke hgi-coins-01"></i>{locale.ui.sell_get_paid}</button>
                         </div>
                     </div>
                 </section>

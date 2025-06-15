@@ -6,12 +6,13 @@ import Loader from "./Loader";
 
 type MainPageProps = {
     setPage: (page: string) => void;
-    loading?: boolean
+    loading?: boolean;
+    isRenting?: boolean;
 };
 
 const icons: string[] = ['trophy', 'award', 'medal'];
 
-const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
+const MainPage: React.FC<MainPageProps> = ({ setPage, loading, isRenting }) => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const { locale } = useLocales();
     const [nickname, setNickname] = React.useState<string>('Ravage');
@@ -71,6 +72,12 @@ const MainPage: React.FC<MainPageProps> = ({ setPage, loading }) => {
                             <img src='./sell.png' />
                             <p className="label">{locale.ui.sell}</p>
                         </div>
+                        {isRenting && 
+                            <div className="card" onClick={() => setPage('rent')}>
+                                <img src='./boat-renting.png' />
+                                <p className="label">{locale.ui.rent_boat}</p>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className="right-side">

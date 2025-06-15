@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNuiEvent } from "../../hooks/useNuiEvent";
 import './index.css'
 import MainPage from "./components/MainPage";
 import StatsPage from "./components/StatsPage";
 import { fetchNui } from "../../utils/fetchNui";
 import Leaderboard from './components/Leaderboard';
-import type { LeaderboardProps, ShopProps, StatsProps } from "../../typings/tablet";
+import type { BoatProps, LeaderboardProps, ShopProps, StatsProps } from "../../typings/tablet";
 import ShopWrapper from "./components/shop/ShopWrapper";
 import Sell from "./components/sell/Sell";
+import Rent from "./components/rent/Rent";
 
 const FishingTablet: React.FC = () => {
+    const time = useRef('');
     const [visible, setVisible] = React.useState<boolean>(false);
     const [shouldLoad, setShouldLoad] = React.useState<boolean>(true);
     const [currentPage, setCurrentPage] = React.useState<string | null>('home');
@@ -20,6 +22,7 @@ const FishingTablet: React.FC = () => {
         longestFish: 0
     });
     const [shopItems, setShopItems] = React.useState<ShopProps[]>([]);
+    const [vehicles, setVehicles] = React.useState<BoatProps[]>([]);
 
     const handleClose = () => {
         const container = document.querySelector('.container') as HTMLDivElement;
@@ -45,10 +48,12 @@ const FishingTablet: React.FC = () => {
     useNuiEvent('openTablet', (data) => {
         setCurrentPage('home');
         setShouldLoad(true);
-        setVisible(true);
         setLeaderboard(data.leaderboard);
         setStatistics(data.statistics);
         setShopItems(data.shop);
+        setVehicles(data.boats);
+        setVisible(true);
+        time.current = data.time;
 
         setTimeout(() => setShouldLoad(false), 1);
     });
@@ -58,7 +63,7 @@ const FishingTablet: React.FC = () => {
             <div className="container">
                 <div className="header">
                     <div className="left-section">
-                        <p className="time">7:08 PM</p>
+                        <p className="time">{time.current}</p>
                         <i className="fa-solid fa-house" onClick={() => { if (currentPage !== 'home') setCurrentPage('home') }}></i>
                     </div>
                     <div className="right-section">
@@ -67,11 +72,12 @@ const FishingTablet: React.FC = () => {
                     </div>
                 </div>
                 <div className="main-tablet">
-                    {currentPage === 'home' && <MainPage setPage={setCurrentPage} loading={shouldLoad} />}
+                    {currentPage === 'home' && <MainPage setPage={setCurrentPage} loading={shouldLoad} isRenting={vehicles.length > 0} />}
                     {currentPage === 'stats' && <StatsPage stats={statistics} />}
                     {currentPage === 'leaderboard' && <Leaderboard leaderboard={leaderboard} />}
                     {currentPage === 'shop' && <ShopWrapper items={shopItems} />}
                     {currentPage === 'sell' && <Sell />}
+                    {currentPage === 'rent' && vehicles.length > 0 && <Rent vehicles={vehicles} />}
                 </div>
             </div>
         )

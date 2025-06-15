@@ -33,6 +33,40 @@ end)
 
 db = {}
 
+function db.save()
+    local query = 'UPDATE prp_fishing_users SET data = ? WHERE user_identifier = ?'
+    local parameters = {}
+    local size = 0
+
+    for identifier, data in pairs(levels) do
+        size += 1
+        parameters[size] = {
+            json.encode(data),
+            identifier
+        }
+    end
+
+    if size > 0 then
+        print('Saving player fishing progress.')
+        MySQL.prepare.await(query, parameters)
+    end
+end
+
+lib.cron.new('*/10 * * * *', db.save)
+AddEventHandler('txAdmin:events:serverShuttingDown', db.save)
+
+AddEventHandler('txAdmin:events:scheduledRestart', function(eventData)
+    if eventData.secondsRemaining ~= 60 then return end
+
+	db.save()
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+	if resource == cache.resource then
+		db.save()
+	end
+end)
+
 ---@param identifier string
 function db.createPlayer(identifier)
     levels[identifier] = {

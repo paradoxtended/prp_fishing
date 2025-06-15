@@ -34,7 +34,10 @@
         "sell_inventory": "Sell Inventory",
         "sell_fishes": "Sell Fishes",
         "no_fishes": "You have nothing to sell, bring me some fishes.",
-        "sell_get_paid": "Get Paid"
+        "sell_get_paid": "Get Paid",
+        "rent_boat": "Rent a boat",
+        "rent_boat_description": "This page has been made for renting. Here you can rent any of these boats.",
+        "price": "Price"
     },
     "fishing_equipment": "Fishing Equipment",
     "fishing_challenges": "Fishing Challenges",

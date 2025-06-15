@@ -49,6 +49,11 @@ export const debugTablet = () => {
                     { label: 'Piranha', imageUrl: './public/piranha.png', price: 8.5, length: 6.74, rarity: 'rare', metadata: [
                         { label: 'Fish length', value: 6.74 + '"' }
                     ] },
+                ],
+                boats: [
+                    { name: 'Speeder', price: 150, image: 'https://i.postimg.cc/mDSqWj4P/164px-Speeder.webp', description: 'One of the smaller boats but on the other hand it is extremly fast.' },
+                    { name: 'Dinghy', price: 450, image: 'https://i.postimg.cc/ZKzjZgj0/164px-Dinghy2.webp'  },
+                    { name: 'Tug', price: 750, image: 'https://i.postimg.cc/jq7vpKHG/164px-Tug.webp', description: 'A slow but giant boat. Better for further destination.' }
                 ]
             }
         }

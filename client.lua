@@ -127,12 +127,6 @@ local currentZone
 for locationIndex, loc in ipairs(Peds.locations) do
     local coords = type(loc) ~= 'table' and loc or loc.coords
     local model = type(Peds.model) == 'string' and Peds.model or Utils.RandomFromTable(Peds.model)
-    local isRenting = loc.renting and {
-            label = locale('rent_boat'),
-            icon = 'sailboat',
-            onSelect = rent.openMenu,
-            args = locationIndex
-        } or nil
 
     Utils.CreatePed(coords, model, {
         {
@@ -140,8 +134,7 @@ for locationIndex, loc in ipairs(Peds.locations) do
             icon = 'tablet',
             onSelect = db.openMenu,
             args = locationIndex
-        },
-        isRenting
+        }
     })
 
     if Peds.blip then

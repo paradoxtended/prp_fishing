@@ -107,7 +107,10 @@ lib.callback.register('prp_fishing:sellFish', function(source, fishes)
         end
     end
 
-    player:addAccountMoney(peds.account, math.floor(price))
+    price = math.floor(price)
 
-    return math.floor(price)
+    db.addTotalEarned(player:getIdentifier(), price)
+    player:addAccountMoney(peds.account, price)
+
+    return price
 end)

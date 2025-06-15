@@ -48,7 +48,10 @@ debugData([
                 sell_inventory: 'Sell Inventory',
                 sell_fishes: 'Sell Fishes',
                 no_fishes: 'You have nothing to sell, bring me some fishes.',
-                sell_get_paid: 'Get Paid'
+                sell_get_paid: 'Get Paid',
+                rent_boat: 'Rent a boat',
+                rent_boat_description: 'This page has been made for renting. Here you can rent any of these boats.',
+                price: 'Price'
             },
         },
     },
@@ -95,6 +98,9 @@ interface Locale {
         no_fishes: string;
         sell_inventory: string;
         sell_get_paid: string;
+        rent_boat: string;
+        rent_boat_description: string;
+        price: string;
     };
 }
 
@@ -146,7 +152,10 @@ const LocaleProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             sell_fishes: '',
             no_fishes: '',
             sell_inventory: '',
-            sell_get_paid: ''
+            sell_get_paid: '',
+            rent_boat: '',
+            rent_boat_description: '',
+            price: ''
         },
     });
 
