@@ -15,7 +15,7 @@ lib.callback.register('prp_fishing:rentBoat', function(source, index)
         return false, locale('rent_already')
     end
 
-    if player:getAccountMoney(peds.account) > boat.price then
+    if player:getAccountMoney(peds.account) >= boat.price then
         player:removeAccountMoney(peds.account, boat.price)
         pending[source] = true
         return true

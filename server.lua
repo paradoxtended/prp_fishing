@@ -14,6 +14,14 @@ function closeInventory()
     TriggerClientEvent('ox_inventory:closeInventory', source, true)
 end
 
+---Returns the NUI path of an icon.
+---@param itemName string
+---@return string?
+---@diagnostic disable-next-line: duplicate-set-field
+function getInventoryIcon(itemName)
+    return ('nui://ox_inventory/web/images/%s.png'):format(itemName) .. '?height=128'
+end
+
 ----------------------------------------------------------------------------------------------------------
 --- Script, don't touch unless you know what you're doing
 ----------------------------------------------------------------------------------------------------------
@@ -21,12 +29,13 @@ lib.versionCheck('https://github.com/paradoxtended/prp_fishing')
 
 local Inventory = exports.ox_inventory
 
-local Shop = require 'modules.shops.server'
+require 'modules.shops.server'
 local containers = require 'modules.items.server'
 require 'modules.sell.server'
 require 'modules.challenges.server'
 require 'modules.rent.server'
 require 'modules.nets.server'
+require 'modules.db.server'
 
 local Items = require 'data.items'
 local Fish = require 'data.fish'
@@ -36,7 +45,6 @@ local Utils = require 'utils.server'
 
 local busy = {}
 
-Shop.CreateShops(locale('fishing_equipment'))
 containers.createContainers()
 
 if Zones.zones then
@@ -139,6 +147,8 @@ RegisterNetEvent('prp_fishing:startFishing', function(slotId)
 
     closeInventory()
 
+    local identifier = player:getIdentifier()
+
     local hasWater, currentZone = lib.callback.await('prp_fishing:getCurrentZone', source)
     if not hasWater then return end
 
@@ -193,7 +203,9 @@ RegisterNetEvent('prp_fishing:startFishing', function(slotId)
         })
 
         notify(locale('fish_caught', length, Utils.GetItemLabel(fishName)), 'success')
-        challenges.addCatchFish(player:getIdentifier(), fishName)
+        challenges.addCatchFish(identifier, fishName)
+        db.addFish(identifier, fishName)
+        db.changeLongestFish(identifier, fishName, length)
     elseif math.random(100) <= rod.breakChance and success ~= 'cancel' then
         player:removeItem(rod.name, 1)
         notify(locale('rod_broke'), 'error')

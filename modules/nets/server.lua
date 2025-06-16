@@ -186,7 +186,9 @@ local function isNetInZone(data)
     end
 end
 
-local interval = 1 * 60000
+-- Every 5 minutes some fish get caught...
+-- if you want you can change it here (it's in milliseconds so that's why I'm multiplying it by 60000)
+local interval = 5 * 60000
 
 SetInterval(function()
     for stashId, data in pairs(fishingNets) do

@@ -1,8 +1,10 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import './index.css'
 import App from './App.tsx'
 import { isEnvBrowser } from './utils/misc';
+import LocaleProvider from './providers/LocaleProvider.tsx';
 
 if (isEnvBrowser()) {
   const root = document.getElementById('root');
@@ -17,7 +19,9 @@ if (isEnvBrowser()) {
 const root = document.getElementById('root');
 
 createRoot(root!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+  <DndProvider backend={TouchBackend} options={{ enableMouseEvents: true }}>
+    <LocaleProvider>
+      <App />
+    </LocaleProvider>
+  </DndProvider>
 )

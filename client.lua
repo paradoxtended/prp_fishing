@@ -121,12 +121,13 @@ local Zones = require 'data.zones'
 
 local Utils = require 'utils.client'
 
-local Shop = require 'modules.shops.client'
+require 'modules.shops.client'
 require 'modules.sell.client'
 require 'modules.challenges.client'
 require 'modules.rent.client'
 require 'modules.anchor.client'
 require 'modules.nets.client'
+require 'modules.db.client'
 
 ---@type { index: integer, locationIndex: integer }?
 local currentZone
@@ -134,33 +135,14 @@ local currentZone
 for locationIndex, loc in ipairs(Peds.locations) do
     local coords = type(loc) ~= 'table' and loc or loc.coords
     local model = type(Peds.model) == 'string' and Peds.model or Utils.RandomFromTable(Peds.model)
-    local isRenting = loc.renting and {
-            label = locale('rent_boat'),
-            icon = 'sailboat',
-            onSelect = rent.openMenu,
-            args = locationIndex
-        } or nil
 
     Utils.CreatePed(coords, model, {
         {
-            label = locale('fishing_equipment'),
-            icon = 'store',
-            onSelect = Shop.OpenShop,
+            label = locale('open_tablet'),
+            icon = 'tablet',
+            onSelect = db.openMenu,
             args = locationIndex
-        },
-        {
-            label = locale('sell_fish'),
-            icon = 'fish',
-            onSelect = selling.openMenu,
-            args = locationIndex
-        },
-        {
-            label = locale('fishing_challenges'),
-            icon = 'trophy',
-            onSelect = challenges.openMenu,
-            args = locationIndex
-        },
-        isRenting
+        }
     })
 
     if Peds.blip then

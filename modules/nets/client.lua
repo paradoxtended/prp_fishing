@@ -2,7 +2,7 @@ local inventory, target = exports.ox_inventory, exports.ox_target
 
 local items = require 'data.items'
 
--- Variable handling local objects, fishing nets, where index is stashId and value is the object itself
+-- Variable handling local objects, where index is stashId and value is the object itself
 ---@type table<string, integer>
 local fishingNets = {}
 

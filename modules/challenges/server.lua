@@ -9,7 +9,7 @@
 local challengesData = require 'data.challenges'
 local fish = require 'data.fish'
 
----@type table<string, DailyChallenges[]>
+---@type table<string, { reloaded: boolean, list: DailyChallenges[]? }>
 local dailyChallenges = {}
 
 ---@return ChallengeType, Challenge
@@ -31,13 +31,35 @@ local function getRandomFish(fishList)
 end
 
 ---@param identifier string Player's identifier
-local function generateChallenges(identifier)
+---@param reload? integer
+local function generateChallenges(identifier, reload)
+    if reload and dailyChallenges[identifier].reloaded then return 'hasReloaded' end
+
+    if reload then
+        local type, data = getChallengeType()
+        local total = math.random(data.count.min, data.count.max)
+        local isFish = data?.fishList and getRandomFish(data.fishList) or nil
+
+        dailyChallenges[identifier].list[reload] = {
+            type = type,
+            total = total,
+            catched = 0,
+            fish = isFish?.fish,
+            reward = total * (isFish?.price or data?.price),
+            claimed = false
+        }
+        
+        dailyChallenges[identifier].reloaded = true
+
+        return
+    end
+
     for i=1, 3 do
         local type, data = getChallengeType()
         local total = math.random(data.count.min, data.count.max)
         local isFish = data?.fishList and getRandomFish(data.fishList) or nil
 
-        dailyChallenges[identifier][i] = {
+        dailyChallenges[identifier].list[i] = {
             type = type,
             total = total,
             catched = 0,
@@ -48,6 +70,20 @@ local function generateChallenges(identifier)
     end
 end
 
+RegisterNetEvent('prp_fishing:reloadDailyChallenge', function(index)
+    local source = source
+    local player = Framework.getPlayerFromId(source)
+    if not player then return end
+
+    local success = generateChallenges(player:getIdentifier(), index) ~= 'hasReloaded'
+
+    if success then
+        notify(locale('dch_reloaded'), 'inform')
+    else
+        notify(locale('dch_reloaded_already'), 'error')
+    end
+end)
+
 ---@param source number
 lib.callback.register('prp_fishing:getDailyChallenges', function(source)
     local player = Framework.getPlayerFromId(source)
@@ -56,12 +92,12 @@ lib.callback.register('prp_fishing:getDailyChallenges', function(source)
     local identifier = player:getIdentifier()
 
     if not dailyChallenges[identifier] then
-        dailyChallenges[identifier] = {}
+        dailyChallenges[identifier] = { list = {}, reloaded = false }
 
         generateChallenges(identifier)
     end
 
-    return dailyChallenges[identifier]
+    return dailyChallenges[identifier].list
 end)
 
 ---@param source number
@@ -73,7 +109,7 @@ lib.callback.register('prp_fishing:claimDailyChallenge', function(source, index)
     local identifier = player:getIdentifier()
     if not dailyChallenges[identifier] then return end
 
-    local challenge = dailyChallenges[identifier][index]
+    local challenge = dailyChallenges[identifier].list[index]
     if challenge.catched < challenge.total then return end
 
     challenge.claimed = true
@@ -99,11 +135,11 @@ function challenges.addCatchFish(identifier, fishName)
     end
 
     if not dailyChallenges[identifier] then
-        dailyChallenges[identifier] = {}
+        dailyChallenges[identifier] = { list = {}, reloaded = false }
         generateChallenges(identifier)
     end
 
-    for _, challenge in ipairs(dailyChallenges[identifier]) do
+    for _, challenge in ipairs(dailyChallenges[identifier].list) do
         if challenge.type == 'amount' then
             challenge.catched = challenge.catched + 1
         end
