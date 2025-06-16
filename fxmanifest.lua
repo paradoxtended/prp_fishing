@@ -3,9 +3,9 @@ use_experimental_fxv2_oal 'yes'
 lua54 'yes'
 game 'gta5'
 name 'prp_fishing'
-author 'Paradox'
-version '1.0.1'
-repository 'https://github.com/hi-i-am-andrew/prp_fishing'
+author 'Paradoxtended'
+version '2.0.0'
+repository 'https://github.com/paradoxtended/prp_fishing'
 description 'An advanced fishing script for FiveM'
 
 dependencies {
