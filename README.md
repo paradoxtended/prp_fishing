@@ -15,6 +15,7 @@ A FiveM fishing script based on real-life fishing experience. Highly optimized a
 - Fishing hooks help you to complete the fishing minigame much faster
 - Fishing nets, you can place a fishing net and wait for fishes to get caught by themselves
 - Define as many fishing nets as you wish. Preconfigured small version of fishing net
+- Custom UI for whole script
 
 ## ⚠️ Dependencies
 - [ox_inventory](https://github.com/overextended/ox_inventory)
